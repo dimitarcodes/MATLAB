@@ -1,0 +1,11 @@
+a = [1:5]; b = [1:5];
+for i = 1:5
+    a[i] = input(['enter number a',i,' :']);
+    b[i] = input(['enter number a',i,' :']);
+end 
+
+hyp = zeros(5,5)
+
+for i = 1:5
+    for j = 1:5
+        

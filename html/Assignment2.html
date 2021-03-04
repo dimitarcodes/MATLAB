@@ -1,0 +1,247 @@
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head>
+      <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+   <!--
+This HTML was auto-generated from MATLAB code.
+To make changes, update the MATLAB code and republish this document.
+      --><title>Assignment 2 - s1018291 - Dimitar Dimitrov</title><meta name="generator" content="MATLAB 9.9"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2021-02-08"><meta name="DC.source" content="guess_the_number.m"><style type="text/css">
+html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,font,img,ins,kbd,q,s,samp,small,strike,strong,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td{margin:0;padding:0;border:0;outline:0;font-size:100%;vertical-align:baseline;background:transparent}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:before,blockquote:after,q:before,q:after{content:'';content:none}:focus{outine:0}ins{text-decoration:none}del{text-decoration:line-through}table{border-collapse:collapse;border-spacing:0}
+
+html { min-height:100%; margin-bottom:1px; }
+html body { height:100%; margin:0px; font-family:Arial, Helvetica, sans-serif; font-size:10px; color:#000; line-height:140%; background:#fff none; overflow-y:scroll; }
+html body td { vertical-align:top; text-align:left; }
+
+h1 { padding:0px; margin:0px 0px 25px; font-family:Arial, Helvetica, sans-serif; font-size:1.5em; color:#d55000; line-height:100%; font-weight:normal; }
+h2 { padding:0px; margin:0px 0px 8px; font-family:Arial, Helvetica, sans-serif; font-size:1.2em; color:#000; font-weight:bold; line-height:140%; border-bottom:1px solid #d6d4d4; display:block; }
+h3 { padding:0px; margin:0px 0px 5px; font-family:Arial, Helvetica, sans-serif; font-size:1.1em; color:#000; font-weight:bold; line-height:140%; }
+
+a { color:#005fce; text-decoration:none; }
+a:hover { color:#005fce; text-decoration:underline; }
+a:visited { color:#004aa0; text-decoration:none; }
+
+p { padding:0px; margin:0px 0px 20px; }
+img { padding:0px; margin:0px 0px 20px; border:none; }
+p img, pre img, tt img, li img, h1 img, h2 img { margin-bottom:0px; }
+
+ul { padding:0px; margin:0px 0px 20px 23px; list-style:square; }
+ul li { padding:0px; margin:0px 0px 7px 0px; }
+ul li ul { padding:5px 0px 0px; margin:0px 0px 7px 23px; }
+ul li ol li { list-style:decimal; }
+ol { padding:0px; margin:0px 0px 20px 0px; list-style:decimal; }
+ol li { padding:0px; margin:0px 0px 7px 23px; list-style-type:decimal; }
+ol li ol { padding:5px 0px 0px; margin:0px 0px 7px 0px; }
+ol li ol li { list-style-type:lower-alpha; }
+ol li ul { padding-top:7px; }
+ol li ul li { list-style:square; }
+
+.content { font-size:1.2em; line-height:140%; padding: 20px; }
+
+pre, code { font-size:12px; }
+tt { font-size: 1.2em; }
+pre { margin:0px 0px 20px; }
+pre.codeinput { padding:10px; border:1px solid #d3d3d3; background:#f7f7f7; }
+pre.codeoutput { padding:10px 11px; margin:0px 0px 20px; color:#4c4c4c; }
+pre.error { color:red; }
+
+@media print { pre.codeinput, pre.codeoutput { word-wrap:break-word; width:100%; } }
+
+span.keyword { color:#0000FF }
+span.comment { color:#228B22 }
+span.string { color:#A020F0 }
+span.untermstring { color:#B20000 }
+span.syscmd { color:#B28C00 }
+span.typesection { color:#A0522D }
+
+.footer { width:auto; padding:10px 0px; margin:25px 0px 0px; border-top:1px dotted #878787; font-size:0.8em; line-height:140%; font-style:italic; color:#878787; text-align:left; float:none; }
+.footer p { margin:0px; }
+.footer a { color:#878787; }
+.footer a:hover { color:#878787; text-decoration:underline; }
+.footer a:visited { color:#878787; }
+
+table th { padding:7px 5px; text-align:left; vertical-align:middle; border: 1px solid #d6d4d4; font-weight:bold; }
+table td { padding:7px 5px; text-align:left; vertical-align:top; border:1px solid #d6d4d4; }
+
+
+
+
+
+  </style></head><body>
+
+
+
+
+    <div class="content">
+
+        <h1> Assignment 2 - Dimitar Dimitrov - s1018291</h1>
+
+        <h1>2.3 hypotenuses</h1>
+        <pre class="codeinput">a = [1:5];  <span class="comment">% initialize array of first leg</span>
+b = [1:5];  <span class="comment">% initialize array of second leg</span>
+<span class="keyword">for</span> i = 1:5
+    a(i) = input([<span class="string">'enter number a'</span>, int2str(i),<span class="string">' :'</span>]);  <span class="comment">% acquire values for first leg</span>
+    b(i) = input([<span class="string">'enter number b'</span>, int2str(i),<span class="string">' :'</span>]);  <span class="comment">% acquire values for second leg</span>
+<span class="keyword">end</span>
+
+hyp = zeros(5,5);   <span class="comment">% initialize matrix of hypotenuses</span>
+
+<span class="comment">% for each combination of 2 legs calculate the hypotenuse</span>
+<span class="keyword">for</span> i = 1:5
+    <span class="keyword">for</span> j = 1:5
+        hyp(i,j) = sqrt(a(i)^2 + b(j)^2);
+    <span class="keyword">end</span>
+<span class="keyword">end</span>
+
+disp(hyp);
+</pre>
+
+        <h1>2.3 radii</h1>
+        <pre class="codeinput">r=[1 3:3:15];
+rho=[0:0.01:2*pi];
+<span class="keyword">for</span> i = 1:length(r)
+    x = r(i)*cos(rho);
+    y = r(i)*sin(rho);
+    curr_legend = strcat(<span class="string">"r="</span>,int2str(r(i)));
+    plot(x,y, <span class="string">'DisplayName'</span>, curr_legend );
+    hold <span class="string">on</span>;
+<span class="keyword">end</span>
+legend;
+hold <span class="string">off</span>;
+</pre><img vspace="5" hspace="5" src="two_3_radii_01.png" alt=""> 
+
+
+        <h1>2.4 Guess the number game</h1>
+
+        <pre class="codeinput">Pickme = round(10 + 10*rand(1)); <span class="comment">% old picker changed to number between 10 and 20</span>
+Picker = round(100*rand(1));    <span class="comment">% randomly pick number between 0 and 100</span>
+NrGuesses = 0;                  <span class="comment">% initialize guess counter</span>
+Guessedcorrectly = 0;           <span class="comment">% initialize correct guess boolean</span>
+nrplayers = 5;                  <span class="comment">% initialize number of players</span>
+<span class="keyword">while</span> (Guessedcorrectly == 0 &amp;&amp; NrGuesses &lt;10)  <span class="comment">% repeat until either a correct guess or number of rounds == 10</span>
+    guesses = zeros(nrplayers); <span class="comment">% initialize guess array</span>
+    <span class="comment">% acquire every player's guess</span>
+    <span class="keyword">for</span> i = 1:nrplayers
+        guesses(i) = input([<span class="string">'Player '</span>,int2str(i),<span class="string">' take your guess: '</span>]);
+    <span class="keyword">end</span>
+    <span class="comment">% identify correct guesses</span>
+    correct = find(guesses == Picker);
+    <span class="comment">% if nobody guessed correctly</span>
+    <span class="keyword">if</span> isempty(correct)
+        <span class="comment">% increment the round number</span>
+        NrGuesses = NrGuesses +1;
+        <span class="comment">% if 10 rounds are reached terminate game</span>
+        <span class="keyword">if</span> NrGuesses == 10
+            disp(<span class="string">'GAME OVER, everybody guessed wrong 10 times!'</span>);
+        <span class="keyword">else</span> <span class="comment">% else announce everyone's failure</span>
+            disp([int2str(NrGuesses), <span class="string">' times everybody guessed Wrong'</span>]);
+        <span class="keyword">end</span>
+    <span class="keyword">else</span>
+        <span class="comment">% if somebody guessed correctly, terminate game</span>
+        Guessedcorrectly = 1;
+        <span class="comment">% announce winners</span>
+        <span class="keyword">for</span> i = 1:length(correct)
+            disp([<span class="string">'Player '</span>, int2str(correct(i)),<span class="string">' guessed the number!'</span>]);
+        <span class="keyword">end</span>
+        <span class="comment">% show the number</span>
+        disp([<span class="string">'the number was '</span>, int2str(Picker)]);
+    <span class="keyword">end</span>
+
+    <span class="comment">% if the game has been terminated ask if they want a new game</span>
+    <span class="keyword">if</span> Guessedcorrectly == 1 || NrGuesses == 10
+        NewGame = input(<span class="string">'Do you want to play again? y/n '</span>, <span class="string">'s'</span>);
+        <span class="comment">% if they do, reset all variables</span>
+        <span class="keyword">if</span> NewGame == <span class="string">'y'</span>
+            NrGuesses = 0;
+            Guessedcorrectly = 0;
+            Picker = round(100*rand(1));
+        <span class="keyword">else</span>
+            disp(<span class="string">'goodbye!'</span>)
+        <span class="keyword">end</span>
+    <span class="keyword">end</span>
+<span class="keyword">end</span>
+
+</pre>
+
+    <h1>2.6 celsius to fahrenheit</h1>
+    <pre class="codeinput"><span class="keyword">function</span> [fahr] = cels2fahr(cels)
+<span class="comment">% function [fahr] = celsius2fahr(cels)</span>
+<span class="comment">% this function converts temperature</span>
+<span class="comment">% from celsius to fahrenheit</span>
+<span class="comment">% returns the same type as input (number/vector/matrix)</span>
+
+fahr = cels * (9/5) + 32;
+</pre>
+    
+    <h1>2.6 fahrenheit to celsius</h1>
+<pre class="codeinput"><span class="keyword">function</span> [cels] = fahr2cels(fahr)
+<span class="comment">% function [cels] = celsius2fahr(fahr)</span>
+<span class="comment">% this function converts temperature</span>
+<span class="comment">% from fahrenheit to celsius</span>
+<span class="comment">% returns the same type as input (number/vector/matrix)</span>
+
+cels = (fahr - 32) * (5/9);
+</pre>
+
+    <h1>2.6 prices Vat calculator</h1>
+    <pre class="codeinput"><span class="keyword">function</span> [total, priceVAT] = priceInclVAT(price, vat)
+<span class="comment">% function [priceVAT] = priceInclVAT(price, vat)</span>
+<span class="comment">% this function calculates the price</span>
+<span class="comment">% with vat given the price without vat</span>
+<span class="comment">% and the vat in percent</span>
+
+total = price' + price'.*(vat./100);
+priceVAT = price'.*(vat./100);
+</pre>
+
+    <h1>2.6 hit the ground</h1>
+    <pre class="codeinput"><span class="keyword">function</span> [time, velocity, h_half] = hitGround(height, g)
+<span class="comment">% function [time] = hitGround(height)</span>
+<span class="comment">% function that takes the height from which</span>
+<span class="comment">% an object is dropped (in vacuum) and the</span>
+<span class="comment">% acceleration of the gravity (in m/s^2)</span>
+<span class="comment">% and returns:</span>
+<span class="comment">% 'time' - the time it takes for it to hit the ground</span>
+<span class="comment">% 'velocity' - the velocity at time of collision</span>
+<span class="comment">% 'h_half' - the distance it has covered when half of the</span>
+<span class="comment">% time to collision has elapsed</span>
+
+time = sqrt(height./g);
+velocity = time.*g;
+h_half = 0.5*g*(time.*time/4);
+</pre>
+
+    <h1>2.6 remove outliers</h1>
+    <pre class="codeinput"><span class="keyword">function</span> [Y] = removeOutliers(X, nr_stds)
+<span class="comment">% function [Y] = removeOutliers(X);</span>
+<span class="comment">% removes outliers from an array X</span>
+<span class="comment">% returns new array Y without outliers</span>
+<span class="comment">% an outlier is defined as an element</span>
+<span class="comment">% that sits 'nr_stds' standard</span>
+<span class="comment">% deviations away from the data mean</span>
+
+x_mean = mean(X);
+x_std = std(X);
+Y = X(abs(X-x_mean)/x_std &lt; nr_stds);
+</pre>
+
+    <h1>2.9 function stats</h1>
+    <pre class="codeinput"><span class="keyword">function</span> [means,maximums,minimums,standard_deviations] = functionStats(x,y)
+<span class="comment">% function [means,maximums,minimums,standard_deviations] = functionStats(x,y)</span>
+<span class="comment">% a function that takes two vectors x and y of same size</span>
+<span class="comment">% or a vector x and a matrix y, which has rows equal to size of vector x and</span>
+<span class="comment">% multiple columns</span>
+<span class="comment">% plots vector y (or columns of matrix y) as a function of vector x</span>
+<span class="comment">% returns the means, maximums, minimums and standard_deviations of vector x</span>
+<span class="comment">% and vector y (or columns of matrix y)</span>
+<span class="keyword">if</span> size(x) == size(y)
+    plot(x,y, <span class="string">'-or'</span>);
+<span class="keyword">else</span>
+    plot(x,y, <span class="string">'-o'</span>);
+<span class="keyword">end</span>
+means = [mean(x) mean(y)];
+maximums = [max(x) max(y)];
+minimums = [min(x) min(y)];
+standard_deviations = [std(x) std(y)];
+</pre>
+
+</body></html>

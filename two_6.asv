@@ -1,0 +1,6 @@
+function [fahr] = cels2fahr(cels)
+% function [fahrenheit] = celsius2fahr(t_celsius)
+% this function converts temperature 
+% from celsius to fahrenheit
+
+fahr = cels * (9/5)+32;
