@@ -1,0 +1,268 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"><html><head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+   <!--
+This HTML was auto-generated from MATLAB code.
+To make changes, update the MATLAB code and republish this document.
+--><title>ex3_5</title><meta name="generator" content="MATLAB 9.9"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2021-02-11"><meta name="DC.source" content="ex3_5.m"><style type="text/css">
+	html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,font,img,ins,kbd,q,s,samp,small,strike,strong,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td{margin:0;padding:0;border:0;outline:0;font-size:100%;vertical-align:baseline;background:transparent}body{line-height:1; width:95%;}}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:before,blockquote:after,q:before,q:after{content:'';content:none}:focus{outine:0}ins{text-decoration:none}del{text-decoration:line-through}table{border-collapse:collapse;border-spacing:0}
+
+	html { min-height:100%; margin-bottom:1px; }
+	html body { height:100%; margin:0px; font-family:Arial, Helvetica, sans-serif; font-size:10px; color:#000; line-height:140%; background:#fff none; overflow-y:scroll; }
+	html body td { vertical-align:top; text-align:left; }
+
+	h1 { padding:0px; margin:0px 0px 25px; font-family:Arial, Helvetica, sans-serif; font-size:1.5em; color:#d55000; line-height:100%; font-weight:normal; }
+	h2 { padding:0px; margin:0px 0px 8px; font-family:Arial, Helvetica, sans-serif; font-size:1.2em; color:#000; font-weight:bold; line-height:140%; border-bottom:1px solid #d6d4d4; display:block; }
+	h3 { padding:0px; margin:0px 0px 5px; font-family:Arial, Helvetica, sans-serif; font-size:1.1em; color:#000; font-weight:bold; line-height:140%; }
+
+	a { color:#005fce; text-decoration:none; }
+	a:hover { color:#005fce; text-decoration:underline; }
+	a:visited { color:#004aa0; text-decoration:none; }
+
+	p { padding:0px; margin:0px 0px 20px; }
+	img { padding:0px; display: block; margin: 0px auto 0px; border:none; width:80%;}
+	p img, pre img, tt img, li img, h1 img, h2 img { margin-bottom:0px; }
+
+	ul { padding:0px; margin:0px 0px 20px 23px; list-style:square; }
+	ul li { padding:0px; margin:0px 0px 7px 0px; }
+	ul li ul { padding:5px 0px 0px; margin:0px 0px 7px 23px; }
+	ul li ol li { list-style:decimal; }
+	ol { padding:0px; margin:0px 0px 20px 0px; list-style:decimal; }
+	ol li { padding:0px; margin:0px 0px 7px 23px; list-style-type:decimal; }
+	ol li ol { padding:5px 0px 0px; margin:0px 0px 7px 0px; }
+	ol li ol li { list-style-type:lower-alpha; }
+	ol li ul { padding-top:7px; }
+	ol li ul li { list-style:square; }
+
+	.content { font-size:1.2em; line-height:140%; padding: 20px; }
+
+	pre, code { font-size:12px; background:#f7f7f7;  padding: 10px; border: 1px solid #d3d3d3}
+	tt { font-size: 1.2em; }
+	pre { margin:0px 0px 20px; }
+	pre.codeinput { padding:10px; border:1px solid #d3d3d3; background:#f7f7f7; }
+	pre.codeoutput { padding:10px 11px; margin:0px 0px 20px; color:#4c4c4c; }
+	pre.error { color:red; }
+
+	@media print { pre.codeinput, pre.codeoutput { word-wrap:break-word; width:100%; } }
+
+	span.keyword { color:#0000FF }
+	span.comment { color:#228B22 }
+	span.string { color:#A020F0 }
+	span.untermstring { color:#B20000 }
+	span.syscmd { color:#B28C00 }
+	span.typesection { color:#A0522D }
+
+	.footer { width:auto; padding:10px 0px; margin:25px 0px 0px; border-top:1px dotted #878787; font-size:0.8em; line-height:140%; font-style:italic; color:#878787; text-align:left; float:none; }
+	.footer p { margin:0px; }
+	.footer a { color:#878787; }
+	.footer a:hover { color:#878787; text-decoration:underline; }
+	.footer a:visited { color:#878787; }
+
+	table th { padding:7px 5px; text-align:left; vertical-align:middle; border: 1px solid #d6d4d4; font-weight:bold; }
+	table td { padding:7px 5px; text-align:left; vertical-align:top; border:1px solid #d6d4d4; }
+
+	p {
+		font-size:1.2em;
+	}
+	ul, li{
+		font-size:1.2em;
+	}
+
+</style></head><body>
+
+
+
+	<div class="content">
+
+		<h1> Assignment 4 - Dimitar Dimitrov - s1018291</h1>
+
+		<h1> 4.4 Fast Fourier Transform </h1>
+
+		<pre class="codeinput">load (<span class="string">"fourier_practicesignals.mat"</span>);
+
+iter = 1:6;
+
+<span class="keyword">for</span> i=iter
+    subplot(6,1,i);
+    subplot(length(iter),1,i);
+    plot(eval([<span class="string">'t'</span> num2str(i)]), eval([<span class="string">'y'</span> num2str(i)]));
+    title(strcat(<span class="string">'signal '</span>, num2str(i)));
+    xlabel(<span class="string">'time(s)'</span>);
+    ylabel(<span class="string">'amplitude (v)'</span>);
+<span class="keyword">end</span>
+</pre>
+<img src="signals.png">
+<p>
+signals 1,2,3 and 6 seem to be periodic, so we can probably analyze them and predict where maximums/minimums occur, while signals 4 and 5 seem to have too much noise/randomness to see a pattern, at least at first sight</p>
+
+
+
+
+<pre class="codeinput">
+Fss=zeros(1,6);
+ns=zeros(1,6);
+<span class="keyword">for</span> i=iter
+   ttemp = eval([<span class="string">'t'</span> num2str(i)]);
+   Fss(i) = 1/ ( ttemp(2)-ttemp(1) );
+   ns(i) = length(ttemp);
+<span class="keyword">end</span>
+
+disp(Fss);
+disp(ns);
+<span class="comment">% fs1 = 100hz	n1 = 1000 samples	range1=0:50hz</span>
+<span class="comment">% fs2 = 5hz	n2 = 500 samples	range2=0:2.5hz</span>
+<span class="comment">% fs3 = 1hz	n3 = 20 samples		range3=0:0.5hz</span>
+<span class="comment">% fs4 = 20hz	n4 = 601 samples	range4=0:10hz</span>
+<span class="comment">% fs5 = 20hz	n5 = 601 samples	range5=0:10hz</span>
+<span class="comment">% fs6 = 5hz	n6 = 150 samples	range6=0:2.5hz</span>
+
+<span class="keyword">for</span> i=iter
+    subplot(6,1,i);
+    subplot(length(iter),1,i);
+    [t, y] = fourier_transform(eval([<span class="string">'t'</span> num2str(i)]), eval([<span class="string">'y'</span> num2str(i)]));
+    stem(t,y);
+    title(strcat(<span class="string">'fourier transform of signal '</span>, num2str(i)));
+    xlabel(<span class="string">'frequency'</span>);
+    ylabel(<span class="string">'amplitude'</span>);
+<span class="keyword">end</span>
+</pre>
+<img src="fft.png">
+<h2>f. peaks:</h2>
+<ul>
+	<li>signal 1: @ 3hz and @ 10hz</li>
+	<li>signal 2: @ 0.25hz, 0.5hz and 1hz</li>
+	<li>signal 3: @ 0.15hz</li>
+	<li>signal 4: tons of different frequencies, highest peak right below 7hz</li>
+	<li>signal 5: tons of different frequencies, but clear high peak at 1.5hz</li>
+	<li>signal 6: big peaks at 0.5hz and 1hz, but also surprisingly many peaks
+between 0hz and 0.5hz</li>
+</ul>
+<p>
+conclusion: predictions match outcomes (except maybe 5, granted 
+surprisingly clear outcome (minus the low amplitude noise) 
+</p>
+
+<h2>g</h2>
+<p>technically if you look at the first element of every amplitude array none of them are zero, [5, 7.5033e-15, 10, 0.0203, 0.0186, 0.1684], the 2nd signal has negligable amplitude of the first element, 4th, 5th and 6th are tiny. This is because that number represents the offset from the y-axis and apparently all of them are located slightly upwards from 0 (especially the 1st and 3rd signals, which oscillate respectively around 5 and 10, instead of 0)</p>
+
+<h2>h</h2>
+<p>
+in the time domain it is really hard to see, and I personally could not
+detect the additional sine. In the frequency domain though, it is an
+bvious huge peak at 1.5hz, while the noise looks like tons of tine
+spikes all over the place (uniform)</p>
+
+<h2>i</h2>
+<p>
+the smaller amount of samples seems to introduce insecurity/variability,
+since signal 6 seems to be picking up a few extra spikes around 0.25hz
+that aren't present in signal 2. (later we find out this is actually spectral leakage)</p>
+
+<h1> 4.5 spectral leakage</h1>
+<pre>
+freq = 20hz
+</pre>
+<h2>a</h2>
+<h3>number of samples</h3>
+<pre>
+n = 100:
+step size: 20/100 = 0.2hz -> we will get a leak because 2.5hz won't be covered 
+	- closest values we can cover are 2.4hz and 2.6hz
+
+n = 160
+step size: 20/160 = 0.125hz -> we won't get a leak because 2.5hz is covered 
+	- 20x 0.125hz = 2.5hz
+
+n = 250
+step size: 20/250 = 0.08hz -> we will get a leak because 2.5hz won't be covered 
+	- closest values we can cover are 2.48 and 2.56
+</pre>
+<h3> measurement time</h3>
+<pre>
+measurement time:
+
+T = 1s
+n = 1s * 20hz = 20 samples
+step size: 20/20 = 1hz -> we will get a leak because 2.5hz won't be covered 
+	- closest values we can cover are 2hz and 3hz
+
+T = 2.4s
+n= 2.4s * 20hz = 48 samples
+step size = 20/48 = 0.417hz -> we will get a leak because 2.5hz won't be covered 
+	- closest values we can cover are 2.502 and  2.085
+
+T = 5s
+n = 5 * 20hz = 100 samples
+step size = 20/100 = 0.2 -> we will get a leak because 2.5hz won't be covered 
+	- closest values we can cover are 2.4hz and 2.6hz
+</pre>
+<h2>b.</h2>
+<pre>
+fs = 50hz, T =2s, n = 50*2 = 100 samples, step size = 50/100 = 0.5 hz
+fs = 50hz, T =5s, n = 50*5 = 250 samples, step size = 50/250 = 0.2 hz
+fs = 50hz, T =20s, n = 50*20 = 1000 samples, step size = 50/1000 = 0.05 hz
+</pre>
+
+<h1>4.6 whale sounds</h1>
+<pre class="codeinput">[bw, fs] = audioread(<span class="string">"bluewhale.au"</span>);
+
+dt=1/fs;
+t = 0:dt:(length(bw) -1) * dt;
+
+plot(t, bw);
+xlabel(<span class="string">'time (s)'</span>);
+ylabel(<span class="string">'amplitude'</span>);
+title(<span class="string">'Blue Whale audio'</span>);
+<span class="comment">%sound(bw, fs);</span>
+</pre>
+<img src="whale_full.png">
+
+<pre class="codeinput">
+soundA = bw(1:4*fs);
+soundB = bw(5*fs:9*fs - 1);
+
+ogFs = 0.1*fs;
+ogdt = 1/ogFs;
+t = 0:ogdt:(length(soundA) -1) * ogdt;
+
+subplot(2,1,1);
+plot(tA, soundA);
+xlabel(<span class="string">'time (s)'</span>);
+ylabel(<span class="string">'amplitude'</span>);
+title(<span class="string">'Blue Whale garbled noise'</span>);
+subplot(2,1,2);
+plot(tB, soundB);
+xlabel(<span class="string">'time (s)'</span>);
+ylabel(<span class="string">'amplitude'</span>);
+title(<span class="string">'Blue Whale foghorn sound'</span>);
+</pre>
+<img src="whale.png">
+<pre class="codeinput">
+[rangeA, ampA, nyqA] = fourier_transform(t, soundA);
+[rangeB, ampB, nyqB] = fourier_transform(t, soundB);
+
+disp([<span class="string">'nyquist frequency of soundA: '</span>, num2str(nyqA)]);
+disp([<span class="string">'nyquist frequency of soundB: '</span>, num2str(nyqB)]);
+
+</pre>
+<pre class="codeoutput">nyquist frequency of soundA: 200
+nyquist frequency of soundB: 200
+</pre>
+<p>I decided to work with the original sampling frequency and the nyquist frequency of the original sound is 200hz. If you use the frequency given by the file (4000hz), the nyquist frequency is 2000hz (factor 10 of original values)</p>
+<pre class="codeinput">
+subplot(2,1,1);
+stem(rangeA, ampA);
+xlabel(<span class="string">'frequency (Hz)'</span>);
+ylabel(<span class="string">'amplitude'</span>);
+title(<span class="string">'Blue Whale garbled noise (fourier''d)'</span>);
+subplot(2,1,2);
+stem(rangeB, ampB);
+xlabel(<span class="string">'frequency (Hz)'</span>);
+ylabel(<span class="string">'amplitude'</span>);
+title(<span class="string">'Blue Whale foghorn sound (fourier''d)'</span>);
+
+<span class="comment">% sound B has clearer, louder and more peaks than soundA</span>
+</pre>
+<img src="whalefft.png">
+</div>
+</body>
+</html>

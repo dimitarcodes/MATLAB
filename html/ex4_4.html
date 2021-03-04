@@ -1,0 +1,232 @@
+
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head>
+      <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+   <!--
+This HTML was auto-generated from MATLAB code.
+To make changes, update the MATLAB code and republish this document.
+      --><title>ex4_4</title><meta name="generator" content="MATLAB 9.9"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2021-02-18"><meta name="DC.source" content="ex4_4.m"><style type="text/css">
+html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,font,img,ins,kbd,q,s,samp,small,strike,strong,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td{margin:0;padding:0;border:0;outline:0;font-size:100%;vertical-align:baseline;background:transparent}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:before,blockquote:after,q:before,q:after{content:'';content:none}:focus{outine:0}ins{text-decoration:none}del{text-decoration:line-through}table{border-collapse:collapse;border-spacing:0}
+
+html { min-height:100%; margin-bottom:1px; }
+html body { height:100%; margin:0px; font-family:Arial, Helvetica, sans-serif; font-size:10px; color:#000; line-height:140%; background:#fff none; overflow-y:scroll; }
+html body td { vertical-align:top; text-align:left; }
+
+h1 { padding:0px; margin:0px 0px 25px; font-family:Arial, Helvetica, sans-serif; font-size:1.5em; color:#d55000; line-height:100%; font-weight:normal; }
+h2 { padding:0px; margin:0px 0px 8px; font-family:Arial, Helvetica, sans-serif; font-size:1.2em; color:#000; font-weight:bold; line-height:140%; border-bottom:1px solid #d6d4d4; display:block; }
+h3 { padding:0px; margin:0px 0px 5px; font-family:Arial, Helvetica, sans-serif; font-size:1.1em; color:#000; font-weight:bold; line-height:140%; }
+
+a { color:#005fce; text-decoration:none; }
+a:hover { color:#005fce; text-decoration:underline; }
+a:visited { color:#004aa0; text-decoration:none; }
+
+p { padding:0px; margin:0px 0px 20px; }
+img { padding:0px; margin:0px 0px 20px; border:none; }
+p img, pre img, tt img, li img, h1 img, h2 img { margin-bottom:0px; }
+
+ul { padding:0px; margin:0px 0px 20px 23px; list-style:square; }
+ul li { padding:0px; margin:0px 0px 7px 0px; }
+ul li ul { padding:5px 0px 0px; margin:0px 0px 7px 23px; }
+ul li ol li { list-style:decimal; }
+ol { padding:0px; margin:0px 0px 20px 0px; list-style:decimal; }
+ol li { padding:0px; margin:0px 0px 7px 23px; list-style-type:decimal; }
+ol li ol { padding:5px 0px 0px; margin:0px 0px 7px 0px; }
+ol li ol li { list-style-type:lower-alpha; }
+ol li ul { padding-top:7px; }
+ol li ul li { list-style:square; }
+
+.content { font-size:1.2em; line-height:140%; padding: 20px; }
+
+pre, code { font-size:12px; }
+tt { font-size: 1.2em; }
+pre { margin:0px 0px 20px; }
+pre.codeinput { padding:10px; border:1px solid #d3d3d3; background:#f7f7f7; }
+pre.codeoutput { padding:10px 11px; margin:0px 0px 20px; color:#4c4c4c; }
+pre.error { color:red; }
+
+@media print { pre.codeinput, pre.codeoutput { word-wrap:break-word; width:100%; } }
+
+span.keyword { color:#0000FF }
+span.comment { color:#228B22 }
+span.string { color:#A020F0 }
+span.untermstring { color:#B20000 }
+span.syscmd { color:#B28C00 }
+span.typesection { color:#A0522D }
+
+.footer { width:auto; padding:10px 0px; margin:25px 0px 0px; border-top:1px dotted #878787; font-size:0.8em; line-height:140%; font-style:italic; color:#878787; text-align:left; float:none; }
+.footer p { margin:0px; }
+.footer a { color:#878787; }
+.footer a:hover { color:#878787; text-decoration:underline; }
+.footer a:visited { color:#878787; }
+
+table th { padding:7px 5px; text-align:left; vertical-align:middle; border: 1px solid #d6d4d4; font-weight:bold; }
+table td { padding:7px 5px; text-align:left; vertical-align:top; border:1px solid #d6d4d4; }
+
+
+
+
+
+  </style></head><body><div class="content"><pre class="codeinput">load (<span class="string">"fourier_practicesignals.mat"</span>);
+
+iter = 1:6;
+
+<span class="keyword">for</span> i=iter
+    subplot(6,1,i);
+    subplot(length(iter),1,i);
+    plot(eval([<span class="string">'t'</span> num2str(i)]), eval([<span class="string">'y'</span> num2str(i)]));
+    title(strcat(<span class="string">'signal '</span>, num2str(i)));
+    xlabel(<span class="string">'time(s)'</span>);
+    ylabel(<span class="string">'amplitude (v)'</span>);
+<span class="keyword">end</span>
+
+<span class="comment">% signals 1,2,3 and 6 seem to be periodic, so we can probably analyze them</span>
+<span class="comment">% and predict where maximums/minimums occur, while signals 4 and 5 seem to</span>
+<span class="comment">% have too much noise/randomness to see a pattern, at least at first sight</span>
+
+Fss=zeros(1,6);
+ns=zeros(1,6);
+<span class="keyword">for</span> i=iter
+   ttemp = eval([<span class="string">'t'</span> num2str(i)]);
+   Fss(i) = 1/ ( ttemp(2)-ttemp(1) );
+   ns(i) = length(ttemp);
+<span class="keyword">end</span>
+disp(Fss);
+disp(ns);
+<span class="comment">% t1 = 100hz, n1 = 1000 samples</span>
+<span class="comment">% t2 = 5hz, n2 = 500 samples</span>
+<span class="comment">% t3 = 1hz, n3 = 20 samples</span>
+<span class="comment">% t4 = 20hz, n4 = 601 samples</span>
+<span class="comment">% t5 = 20hz, n5 = 601 samples</span>
+<span class="comment">% t6 = 5hz, n6 = 150 samples</span>
+
+<span class="keyword">for</span> i=iter
+    subplot(6,1,i);
+    subplot(length(iter),1,i);
+    [t, y] = fourier_transform(eval([<span class="string">'t'</span> num2str(i)]), eval([<span class="string">'y'</span> num2str(i)]));
+    stem(t,y);
+    title(strcat(<span class="string">'fourier transform of signal '</span>, num2str(i)));
+    xlabel(<span class="string">'frequency'</span>);
+    ylabel(<span class="string">'amplitude'</span>);
+<span class="keyword">end</span>
+
+
+<span class="comment">% f</span>
+<span class="comment">% peaks:</span>
+<span class="comment">% signal 1: @ 3hz and @ 10hz</span>
+<span class="comment">% signal 2: @ 0.25hz, 0.5hz and 1hz</span>
+<span class="comment">% signal 3: @ 0.15hz</span>
+<span class="comment">% signal 4: tons of different frequencies, highest peak right below 7hz</span>
+<span class="comment">% signal 5: tons of different frequencies, but clear high peak at 1.5hz</span>
+<span class="comment">% signal 6: big peaks at 0.5hz and 1hz, but also surprisingly many peaks</span>
+<span class="comment">% between 0hz and 0.5hz</span>
+
+<span class="comment">% conclusion: predictions match outcomes (except maybe 5, granted</span>
+<span class="comment">% surprisingly clear outcome (minus the low amplitude noise)</span>
+
+<span class="comment">% g</span>
+<span class="comment">% technically if you look at the first element of every amplitude array</span>
+<span class="comment">% none of them are zero, [5, 7.5033e-15, 10, 0.0203, 0.0186, 0.1684], the</span>
+<span class="comment">% 2nd signal has negligable amplitude, 4th, 5th and 6th are tiny.</span>
+<span class="comment">% This is because that number represents the offset from the y-axis and</span>
+<span class="comment">% apparently all of them are located slightly upwards from 0 (especially</span>
+<span class="comment">% the 1st and 3rd signals, which oscillate respectively around 5 and 10,</span>
+<span class="comment">% instead of 0)</span>
+
+<span class="comment">% h</span>
+<span class="comment">% in the time domain it is really hard to see, and I personally could not</span>
+<span class="comment">% detect the additional sine. In the frequency domain though, it is an</span>
+<span class="comment">% obvious huge peak at 1.5hz, while the noise looks like tons of tine</span>
+<span class="comment">% spikes all over the place (uniform)</span>
+
+<span class="comment">% i</span>
+<span class="comment">% the smaller amount of samples seems to introduce insecurity/variability,</span>
+<span class="comment">% since signal 6 seems to be picking up a few extra spikes around 0.25hz</span>
+<span class="comment">% that aren't present in signal 2</span>
+</pre><pre class="codeoutput">   100     5     1    20    20     5
+
+        1000         500          20         601         601         150
+
+</pre><img vspace="5" hspace="5" src="ex4_4_01.png" alt=""> <p class="footer"><br><a href="https://www.mathworks.com/products/matlab/">Published with MATLAB&reg; R2020b</a><br></p></div><!--
+##### SOURCE BEGIN #####
+load ("fourier_practicesignals.mat");
+
+iter = 1:6;
+
+for i=iter
+    subplot(6,1,i);   
+    subplot(length(iter),1,i);
+    plot(eval(['t' num2str(i)]), eval(['y' num2str(i)]));
+    title(strcat('signal ', num2str(i)));
+    xlabel('time(s)');
+    ylabel('amplitude (v)');
+end
+
+% signals 1,2,3 and 6 seem to be periodic, so we can probably analyze them
+% and predict where maximums/minimums occur, while signals 4 and 5 seem to
+% have too much noise/randomness to see a pattern, at least at first sight
+
+Fss=zeros(1,6);
+ns=zeros(1,6);
+for i=iter
+   ttemp = eval(['t' num2str(i)]);
+   Fss(i) = 1/ ( ttemp(2)-ttemp(1) );
+   ns(i) = length(ttemp);
+end
+disp(Fss);
+disp(ns);
+% t1 = 100hz, n1 = 1000 samples
+% t2 = 5hz, n2 = 500 samples
+% t3 = 1hz, n3 = 20 samples
+% t4 = 20hz, n4 = 601 samples
+% t5 = 20hz, n5 = 601 samples
+% t6 = 5hz, n6 = 150 samples
+
+for i=iter
+    subplot(6,1,i);   
+    subplot(length(iter),1,i);
+    [t, y] = fourier_transform(eval(['t' num2str(i)]), eval(['y' num2str(i)]));
+    stem(t,y);
+    title(strcat('fourier transform of signal ', num2str(i)));
+    xlabel('frequency');
+    ylabel('amplitude');
+end
+
+
+% f
+% peaks:
+% signal 1: @ 3hz and @ 10hz
+% signal 2: @ 0.25hz, 0.5hz and 1hz
+% signal 3: @ 0.15hz
+% signal 4: tons of different frequencies, highest peak right below 7hz
+% signal 5: tons of different frequencies, but clear high peak at 1.5hz
+% signal 6: big peaks at 0.5hz and 1hz, but also surprisingly many peaks
+% between 0hz and 0.5hz
+
+% conclusion: predictions match outcomes (except maybe 5, granted 
+% surprisingly clear outcome (minus the low amplitude noise) 
+
+% g
+% technically if you look at the first element of every amplitude array
+% none of them are zero, [5, 7.5033e-15, 10, 0.0203, 0.0186, 0.1684], the
+% 2nd signal has negligable amplitude, 4th, 5th and 6th are tiny.
+% This is because that number represents the offset from the y-axis and
+% apparently all of them are located slightly upwards from 0 (especially
+% the 1st and 3rd signals, which oscillate respectively around 5 and 10,
+% instead of 0)
+
+% h
+% in the time domain it is really hard to see, and I personally could not
+% detect the additional sine. In the frequency domain though, it is an
+% obvious huge peak at 1.5hz, while the noise looks like tons of tine
+% spikes all over the place (uniform)
+
+% i
+% the smaller amount of samples seems to introduce insecurity/variability,
+% since signal 6 seems to be picking up a few extra spikes around 0.25hz
+% that aren't present in signal 2
+
+
+
+##### SOURCE END #####
+--></body></html>
