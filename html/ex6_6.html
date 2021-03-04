@@ -1,0 +1,501 @@
+
+<!DOCTYPE html
+	PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+   <!--
+This HTML was auto-generated from MATLAB code.
+To make changes, update the MATLAB code and republish this document.
+--><title>ex6_6</title><meta name="generator" content="MATLAB 9.9"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2021-02-28"><meta name="DC.source" content="ex6_6.m"><style type="text/css">
+	html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,font,img,ins,kbd,q,s,samp,small,strike,strong,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td{margin:0;padding:0;border:0;outline:0;font-size:100%;vertical-align:baseline;background:transparent}body{line-height:1; width:95%;}}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:before,blockquote:after,q:before,q:after{content:'';content:none}:focus{outine:0}ins{text-decoration:none}del{text-decoration:line-through}table{border-collapse:collapse;border-spacing:0}
+
+	html { min-height:100%; margin-bottom:1px; }
+	html body { height:100%; margin:0px; font-family:Arial, Helvetica, sans-serif; font-size:10px; color:#000; line-height:140%; background:#fff none; overflow-y:scroll; }
+	html body td { vertical-align:top; text-align:left; }
+
+	h1 { padding:0px; margin:0px 0px 25px; font-family:Arial, Helvetica, sans-serif; font-size:1.5em; color:#d55000; line-height:100%; font-weight:normal; }
+	h2 { padding:0px; margin:0px 0px 8px; font-family:Arial, Helvetica, sans-serif; font-size:1.2em; color:#000; font-weight:bold; line-height:140%; border-bottom:1px solid #d6d4d4; display:block; }
+	h3 { padding:0px; margin:0px 0px 5px; font-family:Arial, Helvetica, sans-serif; font-size:1.1em; color:#000; font-weight:bold; line-height:140%; }
+
+	a { color:#005fce; text-decoration:none; }
+	a:hover { color:#005fce; text-decoration:underline; }
+	a:visited { color:#004aa0; text-decoration:none; }
+
+	p { padding:0px; margin:0px 0px 20px; }
+	img { padding:0px; display: block; margin: 0px auto 0px; border:none; width:80%;}
+	p img, pre img, tt img, li img, h1 img, h2 img { margin-bottom:0px; }
+
+	ul { padding:0px; margin:0px 0px 20px 23px; list-style:square; }
+	ul li { padding:0px; margin:0px 0px 7px 0px; }
+	ul li ul { padding:5px 0px 0px; margin:0px 0px 7px 23px; }
+	ul li ol li { list-style:decimal; }
+	ol { padding:0px; margin:0px 0px 20px 0px; list-style:decimal; }
+	ol li { padding:0px; margin:0px 0px 7px 23px; list-style-type:decimal; }
+	ol li ol { padding:5px 0px 0px; margin:0px 0px 7px 0px; }
+	ol li ol li { list-style-type:lower-alpha; }
+	ol li ul { padding-top:7px; }
+	ol li ul li { list-style:square; }
+
+	.content { font-size:1.2em; line-height:140%; padding: 20px; }
+
+	pre, code { font-size:12px; background:#f7f7f7;  padding: 10px; border: 1px solid #d3d3d3}
+	tt { font-size: 1.2em; }
+	pre { margin:0px 0px 20px; }
+	pre.codeinput { padding:10px; border:1px solid #d3d3d3; background:#f7f7f7; }
+	pre.codeoutput { padding:10px 11px; margin:0px 0px 20px; color:#4c4c4c; }
+	pre.error { color:red; }
+
+	@media print { pre.codeinput, pre.codeoutput { word-wrap:break-word; width:100%; } }
+
+	span.keyword { color:#0000FF }
+	span.comment { color:#228B22 }
+	span.string { color:#A020F0 }
+	span.untermstring { color:#B20000 }
+	span.syscmd { color:#B28C00 }
+	span.typesection { color:#A0522D }
+
+	.footer { width:auto; padding:10px 0px; margin:25px 0px 0px; border-top:1px dotted #878787; font-size:0.8em; line-height:140%; font-style:italic; color:#878787; text-align:left; float:none; }
+	.footer p { margin:0px; }
+	.footer a { color:#878787; }
+	.footer a:hover { color:#878787; text-decoration:underline; }
+	.footer a:visited { color:#878787; }
+
+	table th { padding:7px 5px; text-align:left; vertical-align:middle; border: 1px solid #d6d4d4; font-weight:bold; }
+	table td { padding:7px 5px; text-align:left; vertical-align:top; border:1px solid #d6d4d4; }
+	}
+	p {
+		font-size:1.2em;
+	}
+	ul, li{
+		font-size:1.2em;
+	}
+
+</style></head><body><div class="content">
+
+	
+	
+	<h1>6.6</h1>
+	<h2>Contents</h2><div class="flex"><ul><li><a href="#1">6.6A</a></li><li><a href="#2">6.6B</a></li><li><a href="#3">6.6B - a)</a></li><li><a href="#4">6.6B - b)</a></li><li><a href="#5">6.6B - c)</a></li><li><a href="#6">6.6B - d)</a></li><li><a href="#7">6.6B - e)</a></li><li><a href="#8">6.6C</a></li><li><a href="#9">6.6C - a)</a></li><li><a href="#10">6.6C - b)</a></li><li><a href="#11">6.6C - c)</a></li><li><a href="#12">6.6C - d)</a></li><li><a href="#13">6.6C - e)  - CODE</a></li><li><a href="#14">6.6C - e)  - ANSWER</a></li><li><a href="#15">6.6C - f)</a></li><li><a href="#16">6.6D</a></li><li><a href="#17">6.6D - a) - CODE</a></li><li><a href="#18">6.6D - a) - ANSWER</a></li><li><a href="#19">6.6D - B</a></li><li><a href="#20">6.6D - C</a></li><li><a href="#21">6.6D - D</a></li><li><a href="#22">6.6D -  E  - Code</a></li><li><a href="#23">6.6D -  E  - Answer</a></li><li><a href="#24">6.6E</a></li><li><a href="#25">6.6E -  A - Code</a></li><li><a href="#26">6.6E -  A - Answer</a></li><li><a href="#27">6.6E - B code</a></li><li><a href="#28">6.6E - B answer</a></li></ul></div><h2 id="1">6.6A</h2><pre class="codeinput">load(<span class="string">'exercise_fMRI_small.mat'</span>);
+</pre><h2 id="2">6.6B</h2><h2 id="3">6.6B - a)</h2><pre class="codeinput">s1 = zeros(1,50);
+	s1(25) = 1;
+</pre><h2 id="4">6.6B - b)</h2><pre class="codeinput">c1 = conv(s1, hrf);
+</pre><h2 id="5">6.6B - c)</h2><pre class="codeinput">c1t =  0:3.22: 3.22*(length(c1)-1);
+	s1t = 0:3.22: 3.22*(length(s1)-1);
+
+	plot(c1t, c1, <span class="string">'DisplayName'</span>, <span class="string">'Convolution Signal'</span>, <span class="string">'LineWidth'</span>, 1);
+	hold <span class="string">on</span>;
+	plot(s1t, s1, <span class="string">'DisplayName'</span>, <span class="string">'Stimulus Presentation'</span>, <span class="string">'LineWidth'</span>, 1 );
+	legend
+	xlabel(<span class="string">'time (s)'</span>);
+	xlim([50 125]);
+	ylabel(<span class="string">'amplitude'</span>);
+</pre><img vspace="5" hspace="5" src="ex6_6_01.png" alt=""> <h2 id="6">6.6B - d)</h2><p>the new graph isn't as smooth and doesn't reach as high as the one in 6.2B, probably the result of convolution with a different HRF vector</p><h2 id="7">6.6B - e)</h2><p>the signal spike happens about 6.5 seconds after the stimulus, and it is returned to baseline level at 109.48 seconds, about 29 seconds after its onset</p><h2 id="8">6.6C</h2><h2 id="9">6.6C - a)</h2><pre class="codeinput">nrscans = length(bold);
+	D = [];
+	conditions = [<span class="string">"fix"</span>, <span class="string">"stat"</span>, <span class="string">"att"</span>, <span class="string">"natt"</span>];
+	<span class="keyword">for</span> condition = conditions
+	con_idx = eval(condition);
+	condition_stimuli = zeros(nrscans, 1); <span class="comment">% make a zeros vector</span>
+	condition_stimuli(con_idx) = 1; <span class="comment">% populate zeros vector with index of stimulus presentation</span>
+	D = [D condition_stimuli];
+	<span class="keyword">end</span>
+</pre><h2 id="10">6.6C - b)</h2><pre class="codeinput">time = 0:3.22: 3.22*(length(bold) -1);
+
+	subplot(4,2,2:2:8);
+	imagesc(D);
+	colormap <span class="string">gray</span>;
+	title(<span class="string">'Design Matrix'</span>);
+	actual_time = 3.22 * size(D,1);
+	ytick =         1   : 200/3.22  : actual_time;
+	yticklabels =   0   : 200       : 200  * ceil( actual_time /200);
+	set(gca, <span class="string">'YTick'</span>, ytick, <span class="string">'YTickLabel'</span>, yticklabels);
+	set(gca, <span class="string">'XTick'</span>, [1 2 3 4], <span class="string">'XTickLabel'</span>, conditions);
+
+	ylabel(<span class="string">'time (s)'</span>);
+	xlabel(<span class="string">'Regression'</span>);
+
+	idx = 1;
+
+	<span class="keyword">for</span> i=1:2:7
+	subplot(4,2,i);
+	area(time, D(:,idx));
+	ylim([-0.1 1.1]);
+	xlim([0 time(end)]);
+	title(strcat(<span class="string">"condition "</span>, conditions(idx)));
+	xlabel(<span class="string">'time (s)'</span>);
+	ylabel(<span class="string">'presentation'</span>);
+	set(gca, <span class="string">'YTick'</span>, [0, 1], <span class="string">'YTickLabel'</span>, [<span class="string">"hidden"</span>, <span class="string">"shown"</span>]);
+	idx = idx + 1;
+	<span class="keyword">end</span>
+	subplot(4,2,3);
+	set(gcf,<span class="string">'position'</span>,[10,10,800,1000]);
+	shg;
+</pre><img vspace="5" hspace="5" src="ex6_6_02.png" alt=""> <h2 id="11">6.6C - c)</h2><p>condition:</p><div><ul><li>fix : 16 times</li><li>stat : 4 times</li><li>att  : 8 times</li><li>natt : 8 times</li></ul></div><p>fixed order:</p><div><ul><li>there is a fix (fixation point probably) between every stimulus except before stat</li><li>in the first half it goes [att-natt-att-natt-stat] x2</li><li>in the second half it goes [natt-att-natt-att-stat] x2</li></ul></div><p>each stimulus was presented for about 10 scans, each scan takes 3.22 seconds which means each stimulus presentation lasted about 32.2 seconds</p><h2 id="12">6.6C - d)</h2><pre class="codeinput">DHRF = conv2(hrf, D);
+</pre><h2 id="13">6.6C - e)  - CODE</h2><pre class="codeinput">clf;
+
+	subplot(4,2,2:2:8);
+
+	imagesc(DHRF);
+	colormap <span class="string">gray</span>;
+	actual_duration_HRF = 3.22 * size(DHRF,1);
+	ytick =         1   : 200/3.22  : actual_duration_HRF;
+	yticklabels =   0   : 200       : 200  * ceil( actual_duration_HRF /200);
+	set(gca, <span class="string">'YTick'</span>, ytick, <span class="string">'YTickLabel'</span>, yticklabels);
+	set(gca, <span class="string">'XTick'</span>, [1 2 3 4], <span class="string">'XTickLabel'</span>, conditions);
+
+	title(<span class="string">'Design Matrix HRF'</span>);
+	ylabel(<span class="string">'time (s)'</span>);
+	xlabel(<span class="string">'Regression'</span>);
+
+	time_HRF = 0:3.22: 3.22*(length(DHRF) -1);
+
+	idx = 1;
+	<span class="keyword">for</span> i=1:2:7
+	subplot(4,2,i);
+	plot(time_HRF, DHRF(:,idx));
+	xlim([0 time_HRF(end)]);
+	title(strcat(<span class="string">"HRF condition "</span>, conditions(idx)));
+	xlabel(<span class="string">'time (s)'</span>);
+	ylabel(<span class="string">'activation'</span>);
+	idx = idx + 1;
+	<span class="keyword">end</span>
+
+	set(gcf,<span class="string">'position'</span>,[10,10,800,1000])
+</pre><img vspace="5" hspace="5" src="ex6_6_03.png" alt=""> <h2 id="14">6.6C - e)  - ANSWER</h2><p>there is a difference between the two design matrices, because the convolution with HRF introduced a few more values that appear as black in the graph. They are the inhibitory part of the response, so it has negative values which are interpreted as a 0, or black in the graph.</p><h2 id="15">6.6C - f)</h2><pre class="codeinput">DHRF = [ones(size(DHRF,1), 1)  DHRF];
+</pre><h2 id="16">6.6D</h2><h2 id="17">6.6D - a) - CODE</h2><pre class="codeinput">clf;
+	<span class="keyword">for</span> i=1:3
+	subplot(3,1,i)
+	plot(time, bold(:,i), <span class="string">'DisplayName'</span>, strcat(<span class="string">"BOLD Voxel "</span>, num2str(i)));
+	xlim([0 time(end)]);
+	xlabel(<span class="string">'time (s)'</span>);
+	ylabel(<span class="string">'amplitude'</span>);
+	title(strcat(<span class="string">"Conditions + Response of BOLD Voxel "</span>, num2str(i)));
+	hold <span class="string">on</span>;
+	<span class="keyword">for</span> condition=1:4
+	area(time, D(:,condition), <span class="string">'FaceAlpha'</span>, 0.3, <span class="string">'EdgeAlpha'</span>, 0, <span class="string">'DisplayName'</span>, strcat(<span class="string">"condition "</span>, conditions(condition)));
+	legend(<span class="string">"Location"</span>, <span class="string">"northeastoutside"</span>);
+	<span class="keyword">end</span>
+	set(gcf,<span class="string">'position'</span>,[10,10,1000,1000])
+	<span class="keyword">end</span>
+</pre><img vspace="5" hspace="5" src="ex6_6_04.png" alt=""> <h2 id="18">6.6D - a) - ANSWER</h2><div><ul><li>condition fix - all voxels exhibit decrease in excitation during condition fix but voxel 1's amplitude doesn't decrease that much, while voxel 2 and 3 drop really low</li><li>condition natt - voxel 2 and 3 get more excited in response to natt</li><li>condition stat - all voxels exhibit decrease in excitation during condition stat but voxel 3's amplitude doesn't decrease that much, while voxel 1 experiences a moderate drop and voxel 2 - a steep drop</li><li>condition att - all 3 voxels get excited during presentation of condition att</li></ul></div><h2 id="19">6.6D - B</h2><pre class="codeinput">XD = DHRF(1:360,:);
+	betas = [];
+	<span class="keyword">for</span> vox=1:3
+	betas = [betas regress(bold(:, vox), XD)];
+	<span class="keyword">end</span>
+</pre><h2 id="20">6.6D - C</h2><pre class="codeinput">fitted_bold = XD*betas;
+	error = bold - fitted_bold;
+</pre><h2 id="21">6.6D - D</h2><pre class="codeinput">clf; <span class="comment">% clear leftover plots</span>
+
+	<span class="keyword">for</span> vox=1:3
+	subplot(3,1,vox);
+	plot(time, fitted_bold(:,vox), <span class="string">"DisplayName"</span>, <span class="string">"fitted bold singal"</span>);
+	hold <span class="string">on</span>;
+	plot(time, bold(:,vox), <span class="string">"DisplayName"</span>, <span class="string">"bold signal"</span>);
+	plot(time, error(:,vox), <span class="string">"DisplayName"</span>, <span class="string">"error"</span>);
+	title(strcat(<span class="string">"voxel "</span>, num2str(vox)));
+	xlabel(<span class="string">"time (s)"</span>);
+	legend(<span class="string">"Location"</span>, <span class="string">"northeastoutside"</span>);
+	<span class="keyword">end</span>
+	set(gcf,<span class="string">'position'</span>,[10,10,1000,1000])
+</pre><img vspace="5" hspace="5" src="ex6_6_05.png" alt=""> <h2 id="22">6.6D -  E  - Code</h2><pre class="codeinput">sSqErr = [];
+	<span class="keyword">for</span> vox=1:3
+	sSqErr = [sSqErr sum(error(:,vox).^2)];
+	<span class="keyword">end</span>
+	disp(sSqErr);
+</pre><pre class="codeoutput">    8.6371    6.0223    3.4187
+
+</pre><h2 id="23">6.6D -  E  - Answer</h2><p>The 3rd voxel has the smallest sum of squared errors therefore its regression model is the best</p><h2 id="24">6.6E</h2><h2 id="25">6.6E -  A - Code</h2><pre class="codeinput">clf;
+
+	condition_betas = betas(2:5,:).';
+	bar(condition_betas);
+	legend(conditions, <span class="string">"Location"</span>, <span class="string">"southeast"</span>);
+	ylabel(<span class="string">'coefficient size'</span>);
+	title(<span class="string">'regression coefficients'</span>);
+	set(gca, <span class="string">'XTick'</span>, [1 2 3], <span class="string">'XTickLabel'</span>, [<span class="string">"Voxel 1"</span>,<span class="string">"Voxel 2"</span>,<span class="string">"Voxel 3"</span>] );
+</pre><img vspace="5" hspace="5" src="ex6_6_06.png" alt=""> <h2 id="26">6.6E -  A - Answer</h2><div><ul><li>Voxel 1's activation is explained mostly by att</li><li>Voxel 2's activation is explained mostly by att and natt</li><li>Voxel 3's activation is explained mostly by att, natt and stat</li></ul></div><h2 id="27">6.6E - B code</h2><pre class="codeinput">statfix = zeros(1,4);
+	statfix( conditions == <span class="string">"stat"</span>) = 1;
+	statfix( conditions == <span class="string">"fix"</span>) = -1;
+	nattstat = zeros(1,4);
+	nattstat( conditions == <span class="string">"natt"</span>) = 1;
+	nattstat( conditions == <span class="string">"stat"</span>) = -1;
+	attnatt = zeros(1,4);
+	attnatt( conditions == <span class="string">"att"</span>) = 1;
+	attnatt( conditions == <span class="string">"natt"</span>) = -1;
+
+	contrasts_idx = [ statfix; nattstat; attnatt].';
+	contrasts = condition_betas*contrasts_idx;
+	subplot(1,2,1);
+	bar(contrasts);
+	set(gca, <span class="string">'XTick'</span>, [1 2 3], <span class="string">'XTickLabel'</span>, [<span class="string">"Voxel 1"</span>,<span class="string">"Voxel 2"</span>,<span class="string">"Voxel 3"</span>] );
+	legend([<span class="string">"stat-fix"</span>, <span class="string">"natt-stat"</span>, <span class="string">"att-natt"</span>], <span class="string">"Location"</span>, <span class="string">"northwest"</span>);
+	title(<span class="string">'Grouped by voxel'</span>);
+	subplot(1,2,2);
+
+	contrastst= contrasts.';
+	bar(contrastst);
+	set(gca, <span class="string">'XTick'</span>, [1 2 3], <span class="string">'XTickLabel'</span>, [<span class="string">"stat-fix"</span>, <span class="string">"natt-stat"</span>, <span class="string">"att-natt"</span>] );
+	legend([<span class="string">"Voxel 1"</span>,<span class="string">"Voxel 2"</span>,<span class="string">"Voxel 3"</span>]);
+	title(<span class="string">'Grouped by contrast'</span>);
+	set(gcf,<span class="string">'position'</span>,[10,10,1000,500])
+</pre><img vspace="5" hspace="5" src="ex6_6_07.png" alt=""> <h2 id="28">6.6E - B answer</h2><p>these results indicate the contrast (difference/amplitude) in activity with respect to a condition and its opposite. The higher the contrast the more it is likely that the voxel's activity is coded for that type of contrast</p><div><ul><li>Voxel 1 (from primary visual cortex) is most sensitive to attention vs no attention).</li><li>Voxel 2 (from MT) is most sensitive to motion vs no motion (which iirc makes sense given past research into that area showing neurons there code for specific motion direction).</li><li>Voxel 3 (from IPS) is most sensitive to abesence vs presence of a stimulus.</li></ul></div><p class="footer"><br><a href="https://www.mathworks.com/products/matlab/">Published with MATLAB&reg; R2020b</a><br></p></div><!--
+##### SOURCE BEGIN #####
+%% 6.6A
+load('exercise_fMRI_small.mat');
+%% 6.6B
+%% 6.6B - a) 
+s1 = zeros(1,50);
+s1(25) = 1;
+%% 6.6B - b)
+c1 = conv(s1, hrf);
+%% 6.6B - c)
+c1t =  0:3.22: 3.22*(length(c1)-1);
+s1t = 0:3.22: 3.22*(length(s1)-1);
+
+plot(c1t, c1, 'DisplayName', 'Convolution Signal', 'LineWidth', 1);
+hold on;
+plot(s1t, s1, 'DisplayName', 'Stimulus Presentation', 'LineWidth', 1 );
+legend
+xlabel('time (s)');
+xlim([50 125]);
+ylabel('amplitude');
+%% 6.6B - d)
+% the new graph isn't as smooth and doesn't reach as high as the one in 6.2B,
+% probably the result of convolution with a different HRF vector
+
+%% 6.6B - e)
+% the signal spike happens about 6.5 seconds after the stimulus, and 
+% it is returned to baseline level at 109.48 seconds, about 29 seconds 
+% after its onset
+
+
+%% 6.6C
+%% 6.6C - a)
+nrscans = length(bold);
+D = [];
+conditions = ["fix", "stat", "att", "natt"];
+for condition = conditions
+    con_idx = eval(condition);
+    condition_stimuli = zeros(nrscans, 1); % make a zeros vector
+    condition_stimuli(con_idx) = 1; % populate zeros vector with index of stimulus presentation
+    D = [D condition_stimuli];
+end
+
+%% 6.6C - b)
+time = 0:3.22: 3.22*(length(bold) -1);
+
+subplot(4,2,2:2:8);
+imagesc(D);
+colormap gray;
+title('Design Matrix');
+actual_time = 3.22 * size(D,1); 
+ytick =         1   : 200/3.22  : actual_time;
+yticklabels =   0   : 200       : 200  * ceil( actual_time /200);
+set(gca, 'YTick', ytick, 'YTickLabel', yticklabels);
+set(gca, 'XTick', [1 2 3 4], 'XTickLabel', conditions);
+
+ylabel('time (s)');
+xlabel('Regression');
+
+idx = 1;
+
+for i=1:2:7
+    subplot(4,2,i);
+    area(time, D(:,idx));
+    ylim([-0.1 1.1]);
+    xlim([0 time(end)]);
+    title(strcat("condition ", conditions(idx)));
+    xlabel('time (s)');
+    ylabel('presentation');
+    set(gca, 'YTick', [0, 1], 'YTickLabel', ["hidden", "shown"]);
+    idx = idx + 1;
+end
+subplot(4,2,3);
+set(gcf,'position',[10,10,800,1000]);
+shg;
+%% 6.6C - c)
+% condition:
+%
+% * fix : 16 times
+% * stat : 4 times
+% * att  : 8 times 
+% * natt : 8 times
+%
+% fixed order:
+%
+% * there is a fix (fixation point probably) between every stimulus except
+% before stat
+% * in the first half it goes [att-natt-att-natt-stat] x2
+% * in the second half it goes [natt-att-natt-att-stat] x2
+%
+% each stimulus was presented for about 10 scans, each scan takes 3.22
+% seconds which means each stimulus presentation lasted about 32.2 seconds
+
+%% 6.6C - d)
+DHRF = conv2(hrf, D);
+
+%% 6.6C - e)  - CODE
+clf;
+
+subplot(4,2,2:2:8);
+
+imagesc(DHRF);
+colormap gray;
+actual_duration_HRF = 3.22 * size(DHRF,1); 
+ytick =         1   : 200/3.22  : actual_duration_HRF;
+yticklabels =   0   : 200       : 200  * ceil( actual_duration_HRF /200);
+set(gca, 'YTick', ytick, 'YTickLabel', yticklabels);
+set(gca, 'XTick', [1 2 3 4], 'XTickLabel', conditions);
+
+title('Design Matrix HRF');
+ylabel('time (s)');
+xlabel('Regression');
+
+time_HRF = 0:3.22: 3.22*(length(DHRF) -1);
+
+idx = 1;
+for i=1:2:7
+    subplot(4,2,i);
+    plot(time_HRF, DHRF(:,idx));
+    xlim([0 time_HRF(end)]);
+    title(strcat("HRF condition ", conditions(idx)));
+    xlabel('time (s)');
+    ylabel('activation');
+    idx = idx + 1;
+end
+
+set(gcf,'position',[10,10,800,1000])
+
+%% 6.6C - e)  - ANSWER
+% there is a difference between the two design matrices, because the
+% convolution with HRF introduced a few more values that appear as black in
+% the graph. They are the inhibitory part of the response, so it has
+% negative values which are interpreted as a 0, or black in the graph.
+%% 6.6C - f)
+DHRF = [ones(size(DHRF,1), 1)  DHRF];
+
+%% 6.6D
+%% 6.6D - a) - CODE
+clf;
+for i=1:3
+    subplot(3,1,i)
+    plot(time, bold(:,i), 'DisplayName', strcat("BOLD Voxel ", num2str(i)));
+    xlim([0 time(end)]);
+    xlabel('time (s)');
+    ylabel('amplitude');
+    title(strcat("Conditions + Response of BOLD Voxel ", num2str(i)));
+    hold on;
+    for condition=1:4
+        area(time, D(:,condition), 'FaceAlpha', 0.3, 'EdgeAlpha', 0, 'DisplayName', strcat("condition ", conditions(condition)));
+        legend("Location", "northeastoutside");
+    end
+    set(gcf,'position',[10,10,1000,1000])
+end
+
+%% 6.6D - a) - ANSWER
+% 
+% * condition fix - all voxels exhibit decrease in excitation during
+% condition fix but voxel 1's amplitude doesn't decrease that much, while
+% voxel 2 and 3 drop really low
+% * condition natt - voxel 2 and 3 get more excited in response to natt
+% * condition stat - all voxels exhibit decrease in excitation during
+% condition stat but voxel 3's amplitude doesn't decrease that much, while
+% voxel 1 experiences a moderate drop and voxel 2 - a steep drop
+% * condition att - all 3 voxels get excited during presentation of
+% condition att
+
+%% 6.6D - B
+
+XD = DHRF(1:360,:);
+betas = [];
+for vox=1:3
+    betas = [betas regress(bold(:, vox), XD)];
+end
+%% 6.6D - C
+fitted_bold = XD*betas;
+error = bold - fitted_bold;
+
+%% 6.6D - D
+clf; % clear leftover plots
+
+for vox=1:3
+   subplot(3,1,vox);
+   plot(time, fitted_bold(:,vox), "DisplayName", "fitted bold singal");
+   hold on;
+   plot(time, bold(:,vox), "DisplayName", "bold signal");
+   plot(time, error(:,vox), "DisplayName", "error");
+   title(strcat("voxel ", num2str(vox)));
+   xlabel("time (s)");
+   legend("Location", "northeastoutside");
+end
+set(gcf,'position',[10,10,1000,1000])
+%% 6.6D -  E  - Code
+
+sSqErr = [];
+for vox=1:3
+    sSqErr = [sSqErr sum(error(:,vox).^2)];
+end
+disp(sSqErr);
+%% 6.6D -  E  - Answer
+% The 3rd voxel has the smallest sum of squared errors therefore its
+% regression model is the best
+
+%% 6.6E 
+%% 6.6E -  A - Code
+clf;
+
+condition_betas = betas(2:5,:).';
+bar(condition_betas);
+legend(conditions, "Location", "southeast");
+ylabel('coefficient size');
+title('regression coefficients');
+set(gca, 'XTick', [1 2 3], 'XTickLabel', ["Voxel 1","Voxel 2","Voxel 3"] );
+%% 6.6E -  A - Answer
+%
+% * Voxel 1's activation is explained mostly by att
+% * Voxel 2's activation is explained mostly by att and natt
+% * Voxel 3's activation is explained mostly by att, natt and stat
+
+%% 6.6E - B code
+
+statfix = zeros(1,4);
+statfix( conditions == "stat") = 1;
+statfix( conditions == "fix") = -1;
+nattstat = zeros(1,4);
+nattstat( conditions == "natt") = 1;
+nattstat( conditions == "stat") = -1;
+attnatt = zeros(1,4);
+attnatt( conditions == "att") = 1;
+attnatt( conditions == "natt") = -1;
+
+contrasts_idx = [ statfix; nattstat; attnatt].';
+contrasts = condition_betas*contrasts_idx;
+subplot(1,2,1);
+bar(contrasts);
+set(gca, 'XTick', [1 2 3], 'XTickLabel', ["Voxel 1","Voxel 2","Voxel 3"] );
+legend(["stat-fix", "natt-stat", "att-natt"], "Location", "northwest");
+title('Grouped by voxel');
+subplot(1,2,2);
+
+contrastst= contrasts.';
+bar(contrastst);
+set(gca, 'XTick', [1 2 3], 'XTickLabel', ["stat-fix", "natt-stat", "att-natt"] );
+legend(["Voxel 1","Voxel 2","Voxel 3"]);
+title('Grouped by contrast');
+set(gcf,'position',[10,10,1000,500])
+
+%% 6.6E - B answer
+%
+% these results indicate the contrast (difference/amplitude) in activity 
+% with respect to a condition and its opposite. The higher the contrast the
+% more it is likely that the voxel's activity is coded for that type of
+% contrast
+%
+% * Voxel 1 (from primary visual cortex) is most sensitive to attention
+% vs no attention).
+% * Voxel 2 (from MT) is most sensitive to motion vs no motion (which iirc makes
+% sense given past research into that area showing neurons there code for
+% specific motion direction).
+% * Voxel 3 (from IPS) is most sensitive to abesence vs presence of a
+% stimulus.
+
+##### SOURCE END #####
+--></body></html>

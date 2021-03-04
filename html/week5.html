@@ -1,0 +1,354 @@
+
+<!DOCTYPE html
+	PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+   <!--
+This HTML was auto-generated from MATLAB code.
+To make changes, update the MATLAB code and republish this document.
+--><title>ex6_6</title><meta name="generator" content="MATLAB 9.9"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2021-02-28"><meta name="DC.source" content="ex6_6.m"><style type="text/css">
+	html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,font,img,ins,kbd,q,s,samp,small,strike,strong,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td{margin:0;padding:0;border:0;outline:0;font-size:100%;vertical-align:baseline;background:transparent}body{line-height:1; width:95%;}}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:before,blockquote:after,q:before,q:after{content:'';content:none}:focus{outine:0}ins{text-decoration:none}del{text-decoration:line-through}table{border-collapse:collapse;border-spacing:0}
+
+	html { min-height:100%; margin-bottom:1px; }
+	html body { height:100%; margin:0px; font-family:Arial, Helvetica, sans-serif; font-size:10px; color:#000; line-height:140%; background:#fff none; overflow-y:scroll; }
+	html body td { vertical-align:top; text-align:left; }
+
+	h1 { padding:0px; margin:0px 0px 25px; font-family:Arial, Helvetica, sans-serif; font-size:1.5em; color:#d55000; line-height:100%; font-weight:normal; }
+	h2 { padding:0px; margin:0px 0px 8px; font-family:Arial, Helvetica, sans-serif; font-size:1.2em; color:#000; font-weight:bold; line-height:140%; border-bottom:1px solid #d6d4d4; display:block; }
+	h3 { padding:0px; margin:0px 0px 5px; font-family:Arial, Helvetica, sans-serif; font-size:1.1em; color:#000; font-weight:bold; line-height:140%; }
+
+	a { color:#005fce; text-decoration:none; }
+	a:hover { color:#005fce; text-decoration:underline; }
+	a:visited { color:#004aa0; text-decoration:none; }
+
+	p { font-size: 1.4em; padding:0px; margin:0px 0px 20px; }
+	img { padding:0px; display: block; margin: 0px auto 0px; border:none; width:80%;}
+	p img, pre img, tt img, li img, h1 img, h2 img { margin-bottom:0px; }
+
+	ul { padding:0px; margin:0px 0px 20px 23px; list-style:square; }
+	ul li { padding:0px; margin:0px 0px 7px 0px; }
+	ul li ul { padding:5px 0px 0px; margin:0px 0px 7px 23px; }
+	ul li ol li { list-style:decimal; }
+	ol { padding:0px; margin:0px 0px 20px 0px; list-style:decimal; }
+	ol li { padding:0px; margin:0px 0px 7px 23px; list-style-type:decimal; }
+	ol li ol { padding:5px 0px 0px; margin:0px 0px 7px 0px; }
+	ol li ol li { list-style-type:lower-alpha; }
+	ol li ul { padding-top:7px; }
+	ol li ul li { list-style:square; }
+
+	.content { font-size:1.2em; line-height:140%; padding: 20px; }
+
+	pre, code { font-size:12px; background:#f7f7f7;  padding: 10px; border: 1px solid #d3d3d3}
+	tt { font-size: 1.2em; }
+	pre { margin:0px 0px 20px; }
+	pre.codeinput { padding:10px; border:1px solid #d3d3d3; background:#f7f7f7; }
+	pre.codeoutput { padding:10px 11px; margin:0px 0px 20px; color:#4c4c4c; }
+	pre.error { color:red; }
+
+	@media print { pre.codeinput, pre.codeoutput { word-wrap:break-word; width:100%; } }
+
+	span.keyword { color:#0000FF }
+	span.comment { color:#228B22 }
+	span.string { color:#A020F0 }
+	span.untermstring { color:#B20000 }
+	span.syscmd { color:#B28C00 }
+	span.typesection { color:#A0522D }
+
+	.footer { width:auto; padding:10px 0px; margin:25px 0px 0px; border-top:1px dotted #878787; font-size:0.8em; line-height:140%; font-style:italic; color:#878787; text-align:left; float:none; }
+	.footer p { margin:0px; }
+	.footer a { color:#878787; }
+	.footer a:hover { color:#878787; text-decoration:underline; }
+	.footer a:visited { color:#878787; }
+
+	table th { padding:7px 5px; text-align:left; vertical-align:middle; border: 1px solid #d6d4d4; font-weight:bold; }
+	table td { padding:7px 5px; text-align:left; vertical-align:top; border:1px solid #d6d4d4; }
+	}
+	p {
+		font-size:1.2em;
+	}
+	ul, li{
+		font-size:1.2em;
+	}
+
+</style></head><body><div class="content">
+	<h1>Assignment 5 - Dimitar Dimitrov - s1018291</h1>
+	<h1>5.1 convolution </h1>
+	<h2 id="1">5.1</h2><pre class="codeinput">load(<span class="string">'twitch.mat'</span>);
+</pre><h2 id="2">5.1 - a)</h2><pre class="codeinput">stim1 = zeros(1,100);
+stim1(10) = 1;
+</pre><h2 id="3">5.1 - b) - CODE</h2><pre class="codeinput">c = conv(stim1, twitch);
+time = 1:length(c);
+</pre><h2 id="4">5.1 - b) - ANSWER</h2><p>I think it is (stimulus + twitch - 1) because the moment of excitation coincides</p><h2 id="5">5.1 - c)</h2><pre class="codeinput">plot(time, c);
+xlabel(<span class="string">'time (ms)'</span>);
+ylabel(<span class="string">'amplitude'</span>);
+title(<span class="string">'stimulus 1'</span>);
+</pre><img vspace="5" hspace="5" src="ex5_1_01.png" alt=""> <h2 id="6">5.1 - d)</h2><pre class="codeinput">stim2 = stim1;
+stim2(50) = 1;
+</pre><h2 id="7">5.1 - e)</h2><pre class="codeinput">c2 = conv(stim2, twitch);
+plot(time, c2);
+xlabel(<span class="string">'time (ms)'</span>);
+ylabel(<span class="string">'amplitude'</span>);
+title(<span class="string">'stimulus 2'</span>);
+</pre><img vspace="5" hspace="5" src="ex5_1_02.png" alt=""> <h2 id="8">5.1 - f)</h2><pre class="codeinput">stim3 = stim1;
+stim3(20) = 1;
+c3 = conv(stim3, twitch);
+plot(time, c3);
+xlabel(<span class="string">'time (ms)'</span>);
+ylabel(<span class="string">'amplitude'</span>);
+title(<span class="string">'stimulus 3'</span>);
+</pre><img vspace="5" hspace="5" src="ex5_1_03.png" alt=""> <h2 id="9">5.1 - g)</h2><p>they add up together to form an even bigger excitation it will spasm/contract harder</p><h2 id="10">5.1 - h)</h2><pre class="codeinput">stim4 = zeros(1,100);
+targets = 10:2:40;
+stim4(targets) = 1;
+c4 = conv(stim4, twitch);
+plot(time, c4);
+xlabel(<span class="string">'time (ms)'</span>);
+ylabel(<span class="string">'amplitude'</span>);
+title(<span class="string">'stimulus 4'</span>);
+</pre><img vspace="5" hspace="5" src="ex5_1_04.png" alt=""> <h2 id="11">5.1 - h) answer</h2><p>it looks like a single huge spike with long build-up, which meets my expectations</p>
+
+	<h1>6.4 regression </h1><!--introduction--><!--/introduction--><h2 id="1">6.4 load data</h2><pre class="codeinput">load(<span class="string">'alcohol.mat'</span>);
+</pre><h2 id="2">6.4 expectations</h2><p>i expect to find a positive correlation because a young brain is more mallible and susceptable to manipulation by advertisement (citations needed)</p><h2 id="3">6.4 plot data</h2><pre class="codeinput">scatter(reclametijd, alcoholconsumptie);
+xlabel(<span class="string">'advertisement duration (min)'</span>);
+ylabel(<span class="string">'alcohol consumption by adolescents (dl)'</span>);
+title([{<span class="string">'relationship between alcohol consumption'</span>},
+    {<span class="string">'of adolescents and advertisement duration'</span>}]);
+</pre><img vspace="5" hspace="5" src="ex6_4_01.png" alt=""> <h2 id="4">6.4 regression</h2><pre class="codeinput">[R,p] = corrcoef(reclametijd, alcoholconsumptie);
+beta = polyfit(reclametijd, alcoholconsumptie, 1);
+</pre><h2 id="5">6.4 verify they are significantly correlated</h2><p>p &lt; 0.05 therefore the findings are significant and the null hypothesis (no correlation) can be rejected</p><h2 id="6">6.4 plot residuals</h2><pre class="codeinput">alcoholfit = polyval(beta, reclametijd);
+res =  alcoholconsumptie - alcoholfit;
+scatter(reclametijd, res, <span class="string">'k'</span>);
+xlabel(<span class="string">'advertisement time (minutes)'</span>);
+ylabel(<span class="string">'residuals'</span>);
+title(<span class="string">'Residuals plot of alcohol consumption and advertisement time'</span>)
+</pre><img vspace="5" hspace="5" src="ex6_4_02.png" alt=""> <h2 id="7">6.4 plot residuals - answer</h2><p>the residuals vary between a relatively tight domain [-3;3], so there is indeed a linear relationship</p><h2 id="8">6.4 predict 15 minutes</h2><pre class="codeinput">slope = beta(1);
+intercept = beta(2);
+prediction15 = 15*slope + intercept;
+</pre><h2 id="9">6.4 predict 15 minutes conclusion</h2><p>prediction15 = 4.3533, so we expect an adolescent to drink 4.3533 dl of alcohol on average after having watched 15 minutes of alcohol adverts</p><h2 id="10">6.4 draw regression line</h2><pre class="codeinput">scatter(reclametijd, alcoholconsumptie, <span class="string">"DisplayName"</span>, <span class="string">"data points"</span>);
+xlabel(<span class="string">'advertisement duration (min)'</span>);
+ylabel(<span class="string">'alcohol consumption by adolescents (dl)'</span>);
+title([{<span class="string">'relationship between alcohol consumption'</span>},
+    {<span class="string">'of adolescents and advertisement duration'</span>}]);
+hold <span class="string">on</span>;
+plot(reclametijd, alcoholfit, <span class="string">'r-'</span>, <span class="string">"DisplayName"</span>, <span class="string">"regression line"</span>);
+legend;
+</pre><img vspace="5" hspace="5" src="ex6_4_03.png" alt=""> <h2 id="11">6.4 brief recommendation</h2><p>since the regression line shows a positive relationship between advertisement time and alcohol consumption amongst adolescents I would recommend the government limit the time alcohol ads can run or ban them</p><h2>6.4 function</h2><pre class="codeinput"><span class="keyword">function</span> [slope, intercept, sqRes] = lin_regression(x, y)
+<span class="comment">% function [slope, intercept] = lin_regression(x, y)</span>
+<span class="comment">% takes two vectors, performs linear regression on them, returns the</span>
+<span class="comment">% resulting slope, intercept and sum of squared residuals returned</span>
+<span class="comment">% and plots the original data with the regression line as well as the</span>
+<span class="comment">% residuals graph</span>
+
+[R,p] = corrcoef(x, y);
+beta = polyfit(x, y, 1);
+
+slope = beta(1);
+intercept = beta(2);
+
+yfit = polyval(beta, x);
+res = y - yfit;
+
+sqRes = sum(res.^2);
+
+subplot(2,1,1);
+scatter(x,y, <span class="string">'DisplayName'</span>, <span class="string">'data points'</span>);
+hold <span class="string">on</span>;
+plot(x, yfit, <span class="string">'r-'</span>, <span class="string">'DisplayName'</span>, <span class="string">'regression line'</span>);
+title([{<span class="string">'original data + regression line'</span>},
+    {strcat(<span class="string">'correlation coeficient = '</span>, num2str(R(1,2)))},
+    {strcat(<span class="string">'p = '</span>, num2str(p(1,2)))}]);
+xlabel(<span class="string">'1st variable'</span>);
+ylabel(<span class="string">'2nd variable'</span>);
+legend;
+
+subplot(2,1,2);
+scatter(x, res);
+title(<span class="string">'residuals of the data'</span>);
+xlabel(<span class="string">'1st variable'</span>);
+ylabel(<span class="string">'residuals of 2nd variable'</span>);
+set(gcf,<span class="string">'position'</span>,[10,10,400,800]);
+hold <span class="string">off</span>
+</pre>
+
+	<h1>6.5 multiple regression</h1>
+	<h2 id="1">6.5</h2><pre class="codeinput">load(<span class="string">'testresult.mat'</span>)
+</pre><h2 id="2">6.5 - a)</h2><p>dependent variable: test score predictive variables: everything else (so study duration, coffee, ADHD medication intake, placebo drink units)</p><p>Personally, I think Study Time will show effect.</p><h2 id="3">6.5 - b)</h2><pre class="codeinput">D = [ones(100,1), ADHDmedicijn, Koffie, Placebo, Studietijd];
+</pre><h2 id="4">6.5 - c)</h2><pre class="codeinput">[B, BINT] = regress(Testscore, D);
+</pre><h2 id="5">6.5 - d) - CODE</h2><pre class="codeinput">disp(BINT);
+</pre><pre class="codeoutput">    0.0172    1.3764
+   -0.0907    0.1236
+   -0.0867    0.0568
+   -0.0700    0.0778
+    0.1569    0.1846
+
+</pre><h2 id="6">6.5 - d) - ANSWER</h2><p>only study time's confidence interval doesn't contain 0, so it is the only significant predictor/influencer</p><p>(the ones vector also returned an interval without 0 but that's not a predictor)</p><p>since placebo's confidence interval contains 0, there probably was no placebo effect taking place</p><h2 id="7">6.5 - e) - CODE</h2><pre class="codeinput">disp(B(5));
+disp(1/B(5));
+disp(strcat( num2str(floor(1/B(5))), <span class="string">" hours and "</span>,  num2str( round( 60* (1/B(5)-floor(1/B(5)) ) )) , <span class="string">" minutes"</span>  ));
+</pre><pre class="codeoutput">    0.1708
+
+    5.8560
+
+5 hours and 51 minutes
+</pre><h2 id="8">6.5 - e - answer</h2><p>Test Score = Variable * Variable's Regression Coefficient</p><p>The Regression Coefficient of Study Time is equal to 0.1708 (given by B(5))</p><p>therefore 1 Test Point = Study Time for 1 point * 0.1708</p><p>Study Time for 1 point = 5.8560 hrs</p><p>around 5 hours and 51 minutes of studying are needed to get an extra point on the test</p>
+
+	
+	<h1>6.6 FMRI </h1>
+	<h2 id="1">6.6A</h2><pre class="codeinput">load(<span class="string">'exercise_fMRI_small.mat'</span>);
+</pre><h2 id="2">6.6B</h2><h2 id="3">6.6B - a)</h2><pre class="codeinput">s1 = zeros(1,50);
+s1(25) = 1;
+</pre><h2 id="4">6.6B - b)</h2><pre class="codeinput">c1 = conv(s1, hrf);
+</pre><h2 id="5">6.6B - c)</h2><pre class="codeinput">c1t =  0:3.22: 3.22*(length(c1)-1);
+s1t = 0:3.22: 3.22*(length(s1)-1);
+
+plot(c1t, c1, <span class="string">'DisplayName'</span>, <span class="string">'Convolution Signal'</span>, <span class="string">'LineWidth'</span>, 1);
+hold <span class="string">on</span>;
+plot(s1t, s1, <span class="string">'DisplayName'</span>, <span class="string">'Stimulus Presentation'</span>, <span class="string">'LineWidth'</span>, 1 );
+legend
+xlabel(<span class="string">'time (s)'</span>);
+xlim([50 125]);
+ylabel(<span class="string">'amplitude'</span>);
+</pre><img vspace="5" hspace="5" src="ex6_6_01.png" alt=""> <h2 id="6">6.6B - d)</h2><p>the new graph isn't as smooth and doesn't reach as high as the one in 6.2B, probably the result of convolution with a different HRF vector</p><h2 id="7">6.6B - e)</h2><p>the signal spike happens about 6.5 seconds after the stimulus, and it is returned to baseline level at 109.48 seconds, about 29 seconds after its onset</p><h2 id="8">6.6C</h2><h2 id="9">6.6C - a)</h2><pre class="codeinput">nrscans = length(bold);
+D = [];
+conditions = [<span class="string">"fix"</span>, <span class="string">"stat"</span>, <span class="string">"att"</span>, <span class="string">"natt"</span>];
+<span class="keyword">for</span> condition = conditions
+	con_idx = eval(condition);
+	condition_stimuli = zeros(nrscans, 1); <span class="comment">% make a zeros vector</span>
+	condition_stimuli(con_idx) = 1; <span class="comment">% populate zeros vector with index of stimulus presentation</span>
+	D = [D condition_stimuli];
+<span class="keyword">end</span>
+</pre><h2 id="10">6.6C - b)</h2><pre class="codeinput">time = 0:3.22: 3.22*(length(bold) -1);
+
+subplot(4,2,2:2:8);
+imagesc(D);
+colormap <span class="string">gray</span>;
+title(<span class="string">'Design Matrix'</span>);
+actual_time = 3.22 * size(D,1);
+ytick =         1   : 200/3.22  : actual_time;
+yticklabels =   0   : 200       : 200  * ceil( actual_time /200);
+set(gca, <span class="string">'YTick'</span>, ytick, <span class="string">'YTickLabel'</span>, yticklabels);
+set(gca, <span class="string">'XTick'</span>, [1 2 3 4], <span class="string">'XTickLabel'</span>, conditions);
+
+ylabel(<span class="string">'time (s)'</span>);
+xlabel(<span class="string">'Regression'</span>);
+
+idx = 1;
+
+<span class="keyword">for</span> i=1:2:7
+	subplot(4,2,i);
+	area(time, D(:,idx));
+	ylim([-0.1 1.1]);
+	xlim([0 time(end)]);
+	title(strcat(<span class="string">"condition "</span>, conditions(idx)));
+	xlabel(<span class="string">'time (s)'</span>);
+	ylabel(<span class="string">'presentation'</span>);
+	set(gca, <span class="string">'YTick'</span>, [0, 1], <span class="string">'YTickLabel'</span>, [<span class="string">"hidden"</span>, <span class="string">"shown"</span>]);
+	idx = idx + 1;
+<span class="keyword">end</span>
+subplot(4,2,3);
+set(gcf,<span class="string">'position'</span>,[10,10,800,1000]);
+shg;
+</pre><img vspace="5" hspace="5" src="ex6_6_02.png" alt=""> <h2 id="11">6.6C - c)</h2><p>condition:</p><div><ul><li>fix : 16 times</li><li>stat : 4 times</li><li>att  : 8 times</li><li>natt : 8 times</li></ul></div><p>fixed order:</p><div><ul><li>there is a fix (fixation point probably) between every stimulus except before stat</li><li>in the first half it goes [att-natt-att-natt-stat] x2</li><li>in the second half it goes [natt-att-natt-att-stat] x2</li></ul></div><p>each stimulus was presented for about 10 scans, each scan takes 3.22 seconds which means each stimulus presentation lasted about 32.2 seconds</p><h2 id="12">6.6C - d)</h2><pre class="codeinput">DHRF = conv2(hrf, D);
+</pre><h2 id="13">6.6C - e)  - CODE</h2><pre class="codeinput">
+subplot(4,2,2:2:8);
+
+imagesc(DHRF);
+colormap <span class="string">gray</span>;
+actual_duration_HRF = 3.22 * size(DHRF,1);
+ytick =         1   : 200/3.22  : actual_duration_HRF;
+yticklabels =   0   : 200       : 200  * ceil( actual_duration_HRF /200);
+set(gca, <span class="string">'YTick'</span>, ytick, <span class="string">'YTickLabel'</span>, yticklabels);
+set(gca, <span class="string">'XTick'</span>, [1 2 3 4], <span class="string">'XTickLabel'</span>, conditions);
+
+title(<span class="string">'Design Matrix HRF'</span>);
+ylabel(<span class="string">'time (s)'</span>);
+xlabel(<span class="string">'Regression'</span>);
+
+time_HRF = 0:3.22: 3.22*(length(DHRF) -1);
+
+idx = 1;
+<span class="keyword">for</span> i=1:2:7
+	subplot(4,2,i);
+	plot(time_HRF, DHRF(:,idx));
+	xlim([0 time_HRF(end)]);
+	title(strcat(<span class="string">"HRF condition "</span>, conditions(idx)));
+	xlabel(<span class="string">'time (s)'</span>);
+	ylabel(<span class="string">'activation'</span>);
+	idx = idx + 1;
+<span class="keyword">end</span>
+
+set(gcf,<span class="string">'position'</span>,[10,10,800,1000])
+</pre><img vspace="5" hspace="5" src="ex6_6_03.png" alt=""> <h2 id="14">6.6C - e)  - ANSWER</h2><p>there is a difference between the two design matrices, because the convolution with HRF introduced a few more values that appear as black in the graph. They are the inhibitory part of the response, so it has negative values which are interpreted as a 0, or black in the graph.</p><h2 id="15">6.6C - f)</h2><pre class="codeinput">DHRF = [ones(size(DHRF,1), 1)  DHRF];
+</pre><h2 id="16">6.6D</h2><h2 id="17">6.6D - a) - CODE</h2><pre class="codeinput">
+<span class="keyword">for</span> i=1:3
+	subplot(3,1,i)
+	plot(time, bold(:,i), <span class="string">'DisplayName'</span>, strcat(<span class="string">"BOLD Voxel "</span>, num2str(i)));
+	xlim([0 time(end)]);
+	xlabel(<span class="string">'time (s)'</span>);
+	ylabel(<span class="string">'amplitude'</span>);
+	title(strcat(<span class="string">"Conditions + Response of BOLD Voxel "</span>, num2str(i)));
+	hold <span class="string">on</span>;
+	<span class="keyword">for</span> condition=1:4
+		area(time, D(:,condition), <span class="string">'FaceAlpha'</span>, 0.3, <span class="string">'EdgeAlpha'</span>, 0, <span class="string">'DisplayName'</span>, 
+										strcat(<span class="string">"condition "</span>, conditions(condition)));
+		legend(<span class="string">"Location"</span>, <span class="string">"northeastoutside"</span>);
+	<span class="keyword">end</span>
+	set(gcf,<span class="string">'position'</span>,[10,10,1000,1000])
+<span class="keyword">end</span>
+</pre><img vspace="5" hspace="5" src="ex6_6_04.png" alt=""> <h2 id="18">6.6D - a) - ANSWER</h2><div><ul><li>condition fix - all voxels exhibit decrease in excitation during condition fix but voxel 1's amplitude doesn't decrease that much, while voxel 2 and 3 drop really low</li><li>condition natt - voxel 2 and 3 get more excited in response to natt</li><li>condition stat - all voxels exhibit decrease in excitation during condition stat but voxel 3's amplitude doesn't decrease that much, while voxel 1 experiences a moderate drop and voxel 2 - a steep drop</li><li>condition att - all 3 voxels get excited during presentation of condition att</li></ul></div><h2 id="19">6.6D - b)</h2><pre class="codeinput">XD = DHRF(1:360,:);
+betas = [];
+<span class="keyword">for</span> vox=1:3
+	betas = [betas regress(bold(:, vox), XD)];
+<span class="keyword">end</span>
+</pre><h2 id="20">6.6D - c)</h2><pre class="codeinput">fitted_bold = XD*betas;
+error = bold - fitted_bold;
+</pre><h2 id="21">6.6D - d)</h2><pre class="codeinput">
+<span class="keyword">for</span> vox=1:3
+	subplot(3,1,vox);
+	plot(time, fitted_bold(:,vox), <span class="string">"DisplayName"</span>, <span class="string">"fitted bold singal"</span>);
+	hold <span class="string">on</span>;
+	plot(time, bold(:,vox), <span class="string">"DisplayName"</span>, <span class="string">"bold signal"</span>);
+	plot(time, error(:,vox), <span class="string">"DisplayName"</span>, <span class="string">"error"</span>);
+	title(strcat(<span class="string">"voxel "</span>, num2str(vox)));
+	xlabel(<span class="string">"time (s)"</span>);
+	legend(<span class="string">"Location"</span>, <span class="string">"northeastoutside"</span>);
+<span class="keyword">end</span>
+set(gcf,<span class="string">'position'</span>,[10,10,1000,1000])
+</pre><img vspace="5" hspace="5" src="ex6_6_05.png" alt=""> <h2 id="22">6.6D -  e)  - CODE</h2><pre class="codeinput">sSqErr = [];
+<span class="keyword">for</span> vox=1:3
+	sSqErr = [sSqErr sum(error(:,vox).^2)];
+<span class="keyword">end</span>
+disp(sSqErr);
+</pre><pre class="codeoutput">    8.6371    6.0223    3.4187
+
+</pre><h2 id="23">6.6D -  e) - ANSWER</h2><p>The 3rd voxel has the smallest sum of squared errors therefore its regression model is the best</p><h2 id="24">6.6E</h2><h2 id="25">6.6E -  a) - CODE</h2><pre class="codeinput">
+condition_betas = betas(2:5,:).';
+bar(condition_betas);
+legend(conditions, <span class="string">"Location"</span>, <span class="string">"southeast"</span>);
+ylabel(<span class="string">'coefficient size'</span>);
+title(<span class="string">'regression coefficients'</span>);
+set(gca, <span class="string">'XTick'</span>, [1 2 3], <span class="string">'XTickLabel'</span>, [<span class="string">"Voxel 1"</span>,<span class="string">"Voxel 2"</span>,<span class="string">"Voxel 3"</span>] );
+</pre><img vspace="5" hspace="5" src="ex6_6_06.png" alt=""> <h2 id="26">6.6E -  a) - ANSWER </h2><div><ul><li>Voxel 1's activation is explained mostly by att</li><li>Voxel 2's activation is explained mostly by att and natt</li><li>Voxel 3's activation is explained mostly by att, natt and stat</li></ul></div><h2 id="27">6.6E - b) - CODE </h2><pre class="codeinput">statfix = zeros(1,4);
+statfix( conditions == <span class="string">"stat"</span>) = 1;
+statfix( conditions == <span class="string">"fix"</span>) = -1;
+nattstat = zeros(1,4);
+nattstat( conditions == <span class="string">"natt"</span>) = 1;
+nattstat( conditions == <span class="string">"stat"</span>) = -1;
+attnatt = zeros(1,4);
+attnatt( conditions == <span class="string">"att"</span>) = 1;
+attnatt( conditions == <span class="string">"natt"</span>) = -1;
+
+contrasts_idx = [ statfix; nattstat; attnatt].';
+contrasts = condition_betas*contrasts_idx;
+subplot(1,2,1);
+bar(contrasts);
+set(gca, <span class="string">'XTick'</span>, [1 2 3], <span class="string">'XTickLabel'</span>, [<span class="string">"Voxel 1"</span>,<span class="string">"Voxel 2"</span>,<span class="string">"Voxel 3"</span>] );
+legend([<span class="string">"stat-fix"</span>, <span class="string">"natt-stat"</span>, <span class="string">"att-natt"</span>], <span class="string">"Location"</span>, <span class="string">"northwest"</span>);
+title(<span class="string">'Grouped by voxel'</span>);
+subplot(1,2,2);
+
+contrastst= contrasts.';
+bar(contrastst);
+set(gca, <span class="string">'XTick'</span>, [1 2 3], <span class="string">'XTickLabel'</span>, [<span class="string">"stat-fix"</span>, <span class="string">"natt-stat"</span>, <span class="string">"att-natt"</span>] );
+legend([<span class="string">"Voxel 1"</span>,<span class="string">"Voxel 2"</span>,<span class="string">"Voxel 3"</span>]);
+title(<span class="string">'Grouped by contrast'</span>);
+set(gcf,<span class="string">'position'</span>,[10,10,1000,500])
+</pre><img vspace="5" hspace="5" src="ex6_6_07.png" alt=""> <h2 id="28">6.6E - b) - ANSWER</h2><p>these results indicate the contrast (difference/amplitude) in activity with respect to a condition and its opposite. The higher the contrast the more it is likely that the voxel's activity is coded for that type of contrast</p><div><ul><li>Voxel 1 (from primary visual cortex) is most sensitive to attention vs no attention).</li><li>Voxel 2 (from MT) is most sensitive to motion vs no motion (which iirc makes sense given past research into that area showing neurons there code for specific motion direction).</li><li>Voxel 3 (from IPS) is most sensitive to abesence vs presence of a stimulus.</li></ul></div></div></body></html>
