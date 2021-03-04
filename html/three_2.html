@@ -1,0 +1,189 @@
+
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head>
+      <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+   <!--
+This HTML was auto-generated from MATLAB code.
+To make changes, update the MATLAB code and republish this document.
+      --><title>three_2</title><meta name="generator" content="MATLAB 9.9"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2021-02-11"><meta name="DC.source" content="three_2.m"><style type="text/css">
+html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,font,img,ins,kbd,q,s,samp,small,strike,strong,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td{margin:0;padding:0;border:0;outline:0;font-size:100%;vertical-align:baseline;background:transparent}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:before,blockquote:after,q:before,q:after{content:'';content:none}:focus{outine:0}ins{text-decoration:none}del{text-decoration:line-through}table{border-collapse:collapse;border-spacing:0}
+
+html { min-height:100%; margin-bottom:1px; }
+html body { height:100%; margin:0px; font-family:Arial, Helvetica, sans-serif; font-size:10px; color:#000; line-height:140%; background:#fff none; overflow-y:scroll; }
+html body td { vertical-align:top; text-align:left; }
+
+h1 { padding:0px; margin:0px 0px 25px; font-family:Arial, Helvetica, sans-serif; font-size:1.5em; color:#d55000; line-height:100%; font-weight:normal; }
+h2 { padding:0px; margin:0px 0px 8px; font-family:Arial, Helvetica, sans-serif; font-size:1.2em; color:#000; font-weight:bold; line-height:140%; border-bottom:1px solid #d6d4d4; display:block; }
+h3 { padding:0px; margin:0px 0px 5px; font-family:Arial, Helvetica, sans-serif; font-size:1.1em; color:#000; font-weight:bold; line-height:140%; }
+
+a { color:#005fce; text-decoration:none; }
+a:hover { color:#005fce; text-decoration:underline; }
+a:visited { color:#004aa0; text-decoration:none; }
+
+p { padding:0px; margin:0px 0px 20px; }
+img { padding:0px; margin:0px 0px 20px; border:none; }
+p img, pre img, tt img, li img, h1 img, h2 img { margin-bottom:0px; }
+
+ul { padding:0px; margin:0px 0px 20px 23px; list-style:square; }
+ul li { padding:0px; margin:0px 0px 7px 0px; }
+ul li ul { padding:5px 0px 0px; margin:0px 0px 7px 23px; }
+ul li ol li { list-style:decimal; }
+ol { padding:0px; margin:0px 0px 20px 0px; list-style:decimal; }
+ol li { padding:0px; margin:0px 0px 7px 23px; list-style-type:decimal; }
+ol li ol { padding:5px 0px 0px; margin:0px 0px 7px 0px; }
+ol li ol li { list-style-type:lower-alpha; }
+ol li ul { padding-top:7px; }
+ol li ul li { list-style:square; }
+
+.content { font-size:1.2em; line-height:140%; padding: 20px; }
+
+pre, code { font-size:12px; }
+tt { font-size: 1.2em; }
+pre { margin:0px 0px 20px; }
+pre.codeinput { padding:10px; border:1px solid #d3d3d3; background:#f7f7f7; }
+pre.codeoutput { padding:10px 11px; margin:0px 0px 20px; color:#4c4c4c; }
+pre.error { color:red; }
+
+@media print { pre.codeinput, pre.codeoutput { word-wrap:break-word; width:100%; } }
+
+span.keyword { color:#0000FF }
+span.comment { color:#228B22 }
+span.string { color:#A020F0 }
+span.untermstring { color:#B20000 }
+span.syscmd { color:#B28C00 }
+span.typesection { color:#A0522D }
+
+.footer { width:auto; padding:10px 0px; margin:25px 0px 0px; border-top:1px dotted #878787; font-size:0.8em; line-height:140%; font-style:italic; color:#878787; text-align:left; float:none; }
+.footer p { margin:0px; }
+.footer a { color:#878787; }
+.footer a:hover { color:#878787; text-decoration:underline; }
+.footer a:visited { color:#878787; }
+
+table th { padding:7px 5px; text-align:left; vertical-align:middle; border: 1px solid #d6d4d4; font-weight:bold; }
+table td { padding:7px 5px; text-align:left; vertical-align:top; border:1px solid #d6d4d4; }
+
+
+
+
+
+  </style></head><body><div class="content"><pre class="codeinput">[logoff_sound,sampleRate] = audioread(<span class="string">'logoff.wav'</span>);
+high = max(abs(logoff_sound), [], <span class="string">'all'</span>);
+<span class="comment">%sound(logoff_sound, sampleRate);</span>
+duration = (length(logoff_sound) - 1)*1/sampleRate;
+t = 0:1/sampleRate: duration;
+
+subplot(3,1,1);
+plot(t, logoff_sound);
+xlim([0 duration]);
+ylim([-1*high high]);
+title(<span class="string">'Windows "Log Off" Sound'</span>);
+legend(<span class="string">'channel 1'</span>, <span class="string">'channel 2'</span>);
+xlabel(<span class="string">'time (s)'</span>);
+ylabel(<span class="string">'amplitude'</span>);
+<span class="comment">% saveas(gcf, 'logoff.png');</span>
+
+lowampres = round(logoff_sound * 10)/10;
+subplot(3,1,2);
+plot(t, lowampres);
+title([{<span class="string">'Windows "Log Off" Sound'</span>},{<span class="string">'with lower amplitude resolution'</span>}]);
+xlim([0 duration]);
+ylim([-1*high high]);
+legend(<span class="string">'channel 1'</span>, <span class="string">'channel 2'</span>);
+xlabel(<span class="string">'time (s)'</span>);
+ylabel(<span class="string">'amplitude'</span>);
+<span class="comment">% saveas(gcf,'logoff_lowres.png');</span>
+<span class="comment">% the amplitude seems to be using only 7 values (6 steps)</span>
+<span class="comment">%sound(lowampres, sampleRate);</span>
+lowerampres = round(lowampres * 10)/10;
+<span class="comment">%sound(lowerampres, sampleRate);</span>
+<span class="comment">% during the first downscaling of the resolution the amplitudes were</span>
+<span class="comment">% assigned to their closest value (and it had only 7 values) which means a</span>
+<span class="comment">% lot of sounds were assigned to a value higher than their original one</span>
+<span class="comment">% during the rounding. Now those already higher values are amplified again</span>
+<span class="comment">% which produces an even louder soundwave (larger amplitudes).</span>
+
+A_max = max(abs(logoff_sound), [], <span class="string">'all'</span>);
+clipped_sound = logoff_sound;
+clip_factor = 0.8;
+clipped_sound(clipped_sound&gt; clip_factor*A_max) = clip_factor*A_max;
+clipped_sound(clipped_sound&lt; -1*clip_factor*A_max) = -1*clip_factor*A_max;
+subplot(3,1,3);
+plot(t, clipped_sound);
+title([{<span class="string">'Windows "Log Off" Sound'</span>},{<span class="string">'with 80% of max amplitude clipping'</span>}]);
+xlim([0 duration]);
+ylim([-1*high high]);
+legend(<span class="string">'channel 1'</span>, <span class="string">'channel 2'</span>);
+xlabel(<span class="string">'time (s)'</span>);
+ylabel(<span class="string">'amplitude'</span>);
+<span class="comment">%saveas(gcf,'logoff_80clipped.png');</span>
+saveas(gcf,<span class="string">'windows_logoff.png'</span>);
+<span class="comment">%sound(clipped_sound, sampleRate);</span>
+
+<span class="comment">% at 80% I personally can't hear the difference but plotting the sound</span>
+<span class="comment">% makes it obvious that the sound never goes beyond a particular amplitude</span>
+
+<span class="comment">% as we lower the amplitude the sound gets quiter, which makes sense since</span>
+<span class="comment">% we've decreased the amplitude which is effectively the loudness</span>
+</pre><img vspace="5" hspace="5" src="three_2_01.png" alt=""> <p class="footer"><br><a href="https://www.mathworks.com/products/matlab/">Published with MATLAB&reg; R2020b</a><br></p></div><!--
+##### SOURCE BEGIN #####
+[logoff_sound,sampleRate] = audioread('logoff.wav');
+high = max(abs(logoff_sound), [], 'all');
+%sound(logoff_sound, sampleRate);
+duration = (length(logoff_sound) - 1)*1/sampleRate;
+t = 0:1/sampleRate: duration;
+
+subplot(3,1,1);
+plot(t, logoff_sound);
+xlim([0 duration]);
+ylim([-1*high high]);
+title('Windows "Log Off" Sound');
+legend('channel 1', 'channel 2');
+xlabel('time (s)');
+ylabel('amplitude');
+% saveas(gcf, 'logoff.png');
+
+lowampres = round(logoff_sound * 10)/10;
+subplot(3,1,2);
+plot(t, lowampres);
+title([{'Windows "Log Off" Sound'},{'with lower amplitude resolution'}]);
+xlim([0 duration]);
+ylim([-1*high high]);
+legend('channel 1', 'channel 2');
+xlabel('time (s)');
+ylabel('amplitude');
+% saveas(gcf,'logoff_lowres.png');
+% the amplitude seems to be using only 7 values (6 steps)
+%sound(lowampres, sampleRate);
+lowerampres = round(lowampres * 10)/10;
+%sound(lowerampres, sampleRate);
+% during the first downscaling of the resolution the amplitudes were
+% assigned to their closest value (and it had only 7 values) which means a
+% lot of sounds were assigned to a value higher than their original one
+% during the rounding. Now those already higher values are amplified again
+% which produces an even louder soundwave (larger amplitudes).
+
+A_max = max(abs(logoff_sound), [], 'all');
+clipped_sound = logoff_sound;
+clip_factor = 0.8;
+clipped_sound(clipped_sound> clip_factor*A_max) = clip_factor*A_max; 
+clipped_sound(clipped_sound< -1*clip_factor*A_max) = -1*clip_factor*A_max; 
+subplot(3,1,3);
+plot(t, clipped_sound);
+title([{'Windows "Log Off" Sound'},{'with 80% of max amplitude clipping'}]);
+xlim([0 duration]);
+ylim([-1*high high]);
+legend('channel 1', 'channel 2');
+xlabel('time (s)');
+ylabel('amplitude');
+%saveas(gcf,'logoff_80clipped.png');
+saveas(gcf,'windows_logoff.png');
+%sound(clipped_sound, sampleRate);
+
+% at 80% I personally can't hear the difference but plotting the sound 
+% makes it obvious that the sound never goes beyond a particular amplitude
+
+% as we lower the amplitude the sound gets quiter, which makes sense since
+% we've decreased the amplitude which is effectively the loudness 
+##### SOURCE END #####
+--></body></html>

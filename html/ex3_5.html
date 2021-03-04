@@ -1,0 +1,141 @@
+
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head>
+      <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+   <!--
+This HTML was auto-generated from MATLAB code.
+To make changes, update the MATLAB code and republish this document.
+      --><title>ex3_5</title><meta name="generator" content="MATLAB 9.9"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2021-02-11"><meta name="DC.source" content="ex3_5.m"><style type="text/css">
+html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,font,img,ins,kbd,q,s,samp,small,strike,strong,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td{margin:0;padding:0;border:0;outline:0;font-size:100%;vertical-align:baseline;background:transparent}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:before,blockquote:after,q:before,q:after{content:'';content:none}:focus{outine:0}ins{text-decoration:none}del{text-decoration:line-through}table{border-collapse:collapse;border-spacing:0}
+
+html { min-height:100%; margin-bottom:1px; }
+html body { height:100%; margin:0px; font-family:Arial, Helvetica, sans-serif; font-size:10px; color:#000; line-height:140%; background:#fff none; overflow-y:scroll; }
+html body td { vertical-align:top; text-align:left; }
+
+h1 { padding:0px; margin:0px 0px 25px; font-family:Arial, Helvetica, sans-serif; font-size:1.5em; color:#d55000; line-height:100%; font-weight:normal; }
+h2 { padding:0px; margin:0px 0px 8px; font-family:Arial, Helvetica, sans-serif; font-size:1.2em; color:#000; font-weight:bold; line-height:140%; border-bottom:1px solid #d6d4d4; display:block; }
+h3 { padding:0px; margin:0px 0px 5px; font-family:Arial, Helvetica, sans-serif; font-size:1.1em; color:#000; font-weight:bold; line-height:140%; }
+
+a { color:#005fce; text-decoration:none; }
+a:hover { color:#005fce; text-decoration:underline; }
+a:visited { color:#004aa0; text-decoration:none; }
+
+p { padding:0px; margin:0px 0px 20px; }
+img { padding:0px; margin:0px 0px 20px; border:none; }
+p img, pre img, tt img, li img, h1 img, h2 img { margin-bottom:0px; }
+
+ul { padding:0px; margin:0px 0px 20px 23px; list-style:square; }
+ul li { padding:0px; margin:0px 0px 7px 0px; }
+ul li ul { padding:5px 0px 0px; margin:0px 0px 7px 23px; }
+ul li ol li { list-style:decimal; }
+ol { padding:0px; margin:0px 0px 20px 0px; list-style:decimal; }
+ol li { padding:0px; margin:0px 0px 7px 23px; list-style-type:decimal; }
+ol li ol { padding:5px 0px 0px; margin:0px 0px 7px 0px; }
+ol li ol li { list-style-type:lower-alpha; }
+ol li ul { padding-top:7px; }
+ol li ul li { list-style:square; }
+
+.content { font-size:1.2em; line-height:140%; padding: 20px; }
+
+pre, code { font-size:12px; }
+tt { font-size: 1.2em; }
+pre { margin:0px 0px 20px; }
+pre.codeinput { padding:10px; border:1px solid #d3d3d3; background:#f7f7f7; }
+pre.codeoutput { padding:10px 11px; margin:0px 0px 20px; color:#4c4c4c; }
+pre.error { color:red; }
+
+@media print { pre.codeinput, pre.codeoutput { word-wrap:break-word; width:100%; } }
+
+span.keyword { color:#0000FF }
+span.comment { color:#228B22 }
+span.string { color:#A020F0 }
+span.untermstring { color:#B20000 }
+span.syscmd { color:#B28C00 }
+span.typesection { color:#A0522D }
+
+.footer { width:auto; padding:10px 0px; margin:25px 0px 0px; border-top:1px dotted #878787; font-size:0.8em; line-height:140%; font-style:italic; color:#878787; text-align:left; float:none; }
+.footer p { margin:0px; }
+.footer a { color:#878787; }
+.footer a:hover { color:#878787; text-decoration:underline; }
+.footer a:visited { color:#878787; }
+
+table th { padding:7px 5px; text-align:left; vertical-align:middle; border: 1px solid #d6d4d4; font-weight:bold; }
+table td { padding:7px 5px; text-align:left; vertical-align:top; border:1px solid #d6d4d4; }
+
+
+
+
+
+  </style></head><body><div class="content"><pre class="codeinput">load(<span class="string">'EEGdata.mat'</span>);
+plot(t, EEGdata);
+xlim([t(1) t(end)]);
+<span class="comment">% there should be an amplitude spike shortly after a stimulus</span>
+ind_event = find(event==1);
+between = diff(ind_event);
+<span class="comment">% there's different amount of samples between events</span>
+min_samples = min(between);
+<span class="comment">% the minimum amount of samples between 2 consecutive events is 292</span>
+EEGsorted= [];
+<span class="keyword">for</span> i=1:200
+    v = EEGdata(ind_event(i):ind_event(i)+292);
+    EEGsorted = [EEGsorted v];
+<span class="keyword">end</span>
+EEGmean = mean(EEGsorted, 2);
+sampleLength = mean(diff(t)); <span class="comment">% get the average temporal difference between samples</span>
+time = 0:sampleLength:sampleLength*(293-1);
+plot(time,EEGmean)
+title(<span class="string">'mean EEG signal accross 200 trials'</span>)
+xlabel(<span class="string">'time (s)'</span>);
+xlim([time(1) time(end)]);
+ylim([min(EEGmean) max(EEGmean)]);
+ylabel(<span class="string">'amplitude (v)'</span>);
+saveas(gcf, <span class="string">'mean_eeg_time.png'</span>);
+
+<span class="comment">% we can see a positive ERP right before the 50th sample, followed by a</span>
+<span class="comment">% negative potential at around the 80th sample, and another positive</span>
+<span class="comment">% potential at around 130th sample.</span>
+<span class="comment">% after looking at the t vector it seems it's sampling once every 0.0042</span>
+<span class="comment">% seconds, so after converting to that timeline it seems that the potentials</span>
+<span class="comment">% occur at respectively ~200ms, ~350-400ms and ~550ms which are likely</span>
+<span class="comment">% components P200 (aka P2), N400 and P600</span>
+<span class="comment">% the latter two are associated with grammatical error/unexpected words</span>
+<span class="comment">% if I recall correctly</span>
+</pre><img vspace="5" hspace="5" src="ex3_5_01.png" alt=""> <p class="footer"><br><a href="https://www.mathworks.com/products/matlab/">Published with MATLAB&reg; R2020b</a><br></p></div><!--
+##### SOURCE BEGIN #####
+load('EEGdata.mat');
+plot(t, EEGdata);
+xlim([t(1) t(end)]);
+% there should be an amplitude spike shortly after a stimulus
+ind_event = find(event==1);
+between = diff(ind_event);
+% there's different amount of samples between events
+min_samples = min(between);
+% the minimum amount of samples between 2 consecutive events is 292
+EEGsorted= [];
+for i=1:200
+    v = EEGdata(ind_event(i):ind_event(i)+292);
+    EEGsorted = [EEGsorted v];
+end
+EEGmean = mean(EEGsorted, 2);
+sampleLength = mean(diff(t)); % get the average temporal difference between samples
+time = 0:sampleLength:sampleLength*(293-1);
+plot(time,EEGmean)
+title('mean EEG signal accross 200 trials')
+xlabel('time (s)');
+xlim([time(1) time(end)]);
+ylim([min(EEGmean) max(EEGmean)]);
+ylabel('amplitude (v)');
+saveas(gcf, 'mean_eeg_time.png');
+
+% we can see a positive ERP right before the 50th sample, followed by a 
+% negative potential at around the 80th sample, and another positive
+% potential at around 130th sample. 
+% after looking at the t vector it seems it's sampling once every 0.0042
+% seconds, so after converting to that timeline it seems that the potentials
+% occur at respectively ~200ms, ~350-400ms and ~550ms which are likely 
+% components P200 (aka P2), N400 and P600
+% the latter two are associated with grammatical error/unexpected words
+% if I recall correctly
+##### SOURCE END #####
+--></body></html>
