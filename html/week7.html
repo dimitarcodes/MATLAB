@@ -1,0 +1,245 @@
+<!DOCTYPE html
+	PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+   <!--
+This HTML was auto-generated from MATLAB code.
+To make changes, update the MATLAB code and republish this document.
+--><title>Assignment 6</title><meta name="generator" content="MATLAB 9.9"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2021-02-28"><meta name="DC.source" content="ex6_6.m"><style type="text/css">
+	html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,font,img,ins,kbd,q,s,samp,small,strike,strong,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td{margin:0;padding:0;border:0;outline:0;font-size:100%;vertical-align:baseline;background:transparent}body{line-height:1; width:95%;}}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:before,blockquote:after,q:before,q:after{content:'';content:none}:focus{outine:0}ins{text-decoration:none}del{text-decoration:line-through}table{border-collapse:collapse;border-spacing:0}
+
+	html { min-height:100%; margin-bottom:1px; }
+	html body { height:100%; margin:0px; font-family:Arial, Helvetica, sans-serif; font-size:10px; color:#000; line-height:140%; background:#fff none; overflow-y:scroll; }
+	html body td { vertical-align:top; text-align:left; }
+
+	h1 { padding:0px; margin:0px 0px 25px; font-family:Arial, Helvetica, sans-serif; font-size:1.5em; color:#d55000; line-height:100%; font-weight:normal; }
+	h2 { padding:0px; margin:0px 0px 8px; font-family:Arial, Helvetica, sans-serif; font-size:1.2em; color:#000; font-weight:bold; line-height:140%; border-bottom:1px solid #d6d4d4; display:block; }
+	h3 { padding:0px; margin:0px 0px 5px; font-family:Arial, Helvetica, sans-serif; font-size:1.1em; color:#000; font-weight:bold; line-height:140%; }
+
+	a { color:#005fce; text-decoration:none; }
+	a:hover { color:#005fce; text-decoration:underline; }
+	a:visited { color:#004aa0; text-decoration:none; }
+
+	p { font-size: 1.4em; padding:0px; margin:0px 0px 20px; }
+	img { padding:0px; display: block; margin: 0px auto 0px; border:none; width:80%;}
+	p img, pre img, tt img, li img, h1 img, h2 img { margin-bottom:0px; }
+
+	ul { padding:0px; margin:0px 0px 20px 23px; list-style:square; }
+	ul li { padding:0px; margin:0px 0px 7px 0px; }
+	ul li ul { padding:5px 0px 0px; margin:0px 0px 7px 23px; }
+	ul li ol li { list-style:decimal; }
+	ol { padding:0px; margin:0px 0px 20px 0px; list-style:decimal; }
+	ol li { padding:0px; margin:0px 0px 7px 23px; list-style-type:decimal; }
+	ol li ol { padding:5px 0px 0px; margin:0px 0px 7px 0px; }
+	ol li ol li { list-style-type:lower-alpha; }
+	ol li ul { padding-top:7px; }
+	ol li ul li { list-style:square; }
+
+	.content { font-size:1.2em; line-height:140%; padding: 20px; }
+
+	pre, code { font-size:12px; background:#f7f7f7;  padding: 10px; border: 1px solid #d3d3d3}
+	tt { font-size: 1.2em; }
+	pre { margin:0px 0px 20px; }
+	pre.codeinput { padding:10px; border:1px solid #d3d3d3; background:#f7f7f7; }
+	pre.codeoutput { padding:10px 11px; margin:0px 0px 20px; color:#4c4c4c; }
+	pre.error { color:red; }
+
+	@media print { pre.codeinput, pre.codeoutput { word-wrap:break-word; width:100%; } }
+
+	span.keyword { color:#0000FF }
+	span.comment { color:#228B22 }
+	span.string { color:#A020F0 }
+	span.untermstring { color:#B20000 }
+	span.syscmd { color:#B28C00 }
+	span.typesection { color:#A0522D }
+
+	.footer { width:auto; padding:10px 0px; margin:25px 0px 0px; border-top:1px dotted #878787; font-size:0.8em; line-height:140%; font-style:italic; color:#878787; text-align:left; float:none; }
+	.footer p { margin:0px; }
+	.footer a { color:#878787; }
+	.footer a:hover { color:#878787; text-decoration:underline; }
+	.footer a:visited { color:#878787; }
+
+	table th { padding:7px 5px; text-align:left; vertical-align:middle; border: 1px solid #d6d4d4; font-weight:bold; }
+	table td { padding:7px 5px; text-align:left; vertical-align:top; border:1px solid #d6d4d4; }
+	}
+	p {
+		font-size:1.2em;
+	}
+	ul, li{
+		font-size:1.2em;
+	}
+
+</style></head><body><div class="content">
+	<h1>Assignment 7 - Dimitar Dimitrov - s1018291</h1>
+	
+	<h1>9.1 - design matrix</h1>
+	<h2 id="1">9.1 - a)</h2><pre class="codeinput">load(<span class="string">'FinalAssignment_fMRI_data.mat'</span>)
+</pre><h2 id="2">9.1 - b)</h2><pre class="codeinput">view_scan(Y);
+</pre><img vspace="5" hspace="5" src="ex9_1_01.png" alt=""> <h2 id="3">9.1 - c)</h2>
+<pre class="codeinput"><span class="keyword">function</span> [X] = generateDesignMatrix(fix, stat, natt, att, hrf, n_scans)
+<span class="comment">% function [X] = generateDesignMatrix(fix, stat, natt, att, hrf, n_scans)</span>
+<span class="comment">% creates a Design Matrix based on 6 variables:</span>
+<span class="comment">% - fix, stat, natt, att - 4 1-D vectors, containing scan index of</span>
+<span class="comment">% respective condition presentation</span>
+<span class="comment">% - hrf - 1-D vector, containing the hemodynamic response function</span>
+<span class="comment">% - n_scans - the number of scans in the fMRI data</span>
+
+D = zeros(n_scans, 5, <span class="string">'single'</span>);
+D(fix,2) = 1;
+D(stat,3) = 1;
+D(natt,4) = 1;
+D(att,5) = 1;
+XD = conv2(D, hrf);
+X = XD(1:n_scans,:);
+X(:,1) = 1;
+<span class="keyword">end</span>
+</pre>
+<br><br>
+<h1>9.3 - contrast</h1>
+<h2 id="5">9.3 - a)</h2>
+<pre class="codeinput"><span class="keyword">function</span> [betas, Yhat, residuals] = computeBetaYhatResiduals(X,Y)
+<span class="comment">% function [betas, Yhat, residuals] = computeBetaYhatResiduals(X,Y)</span>
+<span class="comment">% takes 2 variables:</span>
+<span class="comment">%  - X - 2-D Design Matrix</span>
+<span class="comment">%  - Y - 4-D fMRI data</span>
+<span class="comment">% performs regression and returns for each voxel:</span>
+<span class="comment">% - beta values</span>
+<span class="comment">% - prediction based on beta values</span>
+<span class="comment">% - residuals based on data and predictions</span>
+<span class="comment">% each variable returned being 4-D as well</span>
+
+[x,y,z,ts] = size(Y);
+Yr = reshape(Y, [x*y*z, ts]);
+betas = X\Yr';
+Yhat = X*betas;
+residuals = Yr' - Yhat;
+
+betas = reshape(betas', [x,y,z,5]);
+Yhat = reshape(Yhat', [x,y,z,ts]);
+residuals = reshape(residuals', [x,y,z,ts]);
+<span class="keyword">end</span>
+</pre>
+
+<pre class="codeinput"><span class="keyword">function</span> [contrast] = applyContrast(betas1, betas2, residuals)
+<span class="comment">% function [contrast] = applyContrast(betas1, betas2)</span>
+<span class="comment">% calculates the contrast between two conditions/explanatory</span>
+<span class="comment">% variables' beta values</span>
+<span class="comment">%</span>
+<span class="comment">% takes  2 values:</span>
+<span class="comment">%  - betas1 - the beta values of first explanatory variable</span>
+<span class="comment">%  - betas2 - the beta values of second explanatory variable</span>
+
+contrast = betas1-betas2;
+<span class="keyword">end</span>
+</pre>
+
+<h2 id="6">9.3 - b)</h2><pre class="codeinput">[~,~,~,nr_scans] = size(Y);
+X = generateDesignMatrix(fix, stat, natt, att, hrf, nr_scans);
+[betas, Yhat, residuals] = computeBetaYhatResiduals(X,Y);
+
+c1 = applyContrast(betas(:,:,:,3), betas(:,:,:,2));
+c2 = applyContrast(betas(:,:,:,4), betas(:,:,:,3));
+c3 = applyContrast(betas(:,:,:,5), betas(:,:,:,4));
+
+view_scan(c1);
+view_scan(c2);
+view_scan(c3);
+</pre><h2 id="7">9.3 - b) ANSWER</h2><div><ul><li>Stat - Fix  - coordinates (in mm): (0.0,-93.0,0.0)</li><li>Natt - Stat - coordinates (in mm): (0.0,-96.0,0.0)</li><li>Att - Natt  - coordinates (in mm): (3.0,12.0,69.0)</li></ul></div>
+
+<h1>9.4 - significant contrast </h1>
+<h2>9.4 - a)</h2>
+<pre class="codeinput"><span class="keyword">function</span> [contrast] = applyContrast(betas1, betas2, residuals)
+<span class="comment">% function [contrast] = applyContrast(betas1, betas2)</span>
+<span class="comment">% calculates the significant contrast between two conditions/explanatory</span>
+<span class="comment">% variables' beta values</span>
+<span class="comment">%</span>
+<span class="comment">% takes  3 values:</span>
+<span class="comment">%  - betas1 - the beta values of first explanatory variable</span>
+<span class="comment">%  - betas2 - the beta values of second explanatory variable</span>
+<span class="comment">%  - residuals - the residuals computed by subtracting the values predicted</span>
+<span class="comment">%  from betas from the actual recorded data</span>
+
+contrast = betas1-betas2;
+[~,~,~,ts] = size(residuals);
+sq_std = sum((residuals.^2), [4]) / (ts-1);
+t = contrast./sqrt(sq_std./ts);
+contrast(abs(t)&lt;10) = 0;
+<span class="keyword">end</span>
+</pre>
+<pre class="codeinput">load(<span class="string">'FinalAssignment_fMRI_data.mat'</span>)
+[x,y,z,nr_scans] = size(Y);
+X = generateDesignMatrix(fix, stat, natt, att, hrf, nr_scans);
+[betas, Yhat, residuals] = computeBetaYhatResiduals(X,Y);
+c1 = applyContrast(betas(:,:,:,3), betas(:,:,:,2), residuals);
+c2 = applyContrast(betas(:,:,:,4), betas(:,:,:,3), residuals);
+c3 = applyContrast(betas(:,:,:,5), betas(:,:,:,4), residuals);
+</pre>
+<h2 id="3">9.4 - b)</h2><pre class="codeinput">view_scan(ana, c1);
+view_scan(ana, c2);
+view_scan(ana, c3);
+</pre>
+<img vspace="5" hspace="5" src="ex9_4_b_1.png" alt=""> 
+<img src="ex9_4_b_2.png">
+<img src="ex9_4_b_3.png">
+<h2 id="4">9.4 - b) ANSWER</h2><div><ul><li>Stat - Fix  - coordinates (in mm): (-3.0,-93.0,0.0)</li><li>Natt - Stat - coordinates (in mm): (-3.0,-93.0,0.0)</li><li>Att - Natt  - coordinates (in mm): (33.0,-65.0,-18.0)</li></ul></div>
+<h1>9.5 - everything in a single function</h1>
+<pre class="codeinput"><span class="keyword">function</span> [] = analysefMRIData(file_name)
+<span class="comment">%function [] = analysefMRIData(file_name)</span>
+<span class="comment">% Opens a .mat file with fMRI data and analyses it then displays the</span>
+<span class="comment">% areas of the brain with significant contrast on top of the anatomical scan.</span>
+<span class="comment">%</span>
+<span class="comment">% The function will plot three figures:</span>
+<span class="comment">%   - The 1st figure shows contrast Stat - Fix</span>
+<span class="comment">%   - The 2nd figure shows contrast Natt - Stat</span>
+<span class="comment">%   - The 3rd figure shows contrast Att - Natt</span>
+<span class="comment">%</span>
+<span class="comment">% Assumed data inside the file:</span>
+<span class="comment">% - Y - 4-D matrix containing fMRI signal</span>
+<span class="comment">% - ana - 3-D matrix containing anatomical scan signal</span>
+<span class="comment">% - hrf - 1-D vector containing hemodynamic response function</span>
+<span class="comment">% - att, natt, stat, fix - each a 1-D vector, containing the scan index at</span>
+<span class="comment">% which the respective condition was presented</span>
+<span class="comment">%</span>
+<span class="comment">% Assumed custom functions available:</span>
+<span class="comment">% - [X] = generateDesignMatrix(fix, stat, natt, att, hrf, n_scans)</span>
+<span class="comment">% - [betas, Yhat, residuals] = computeBetaYhatResiduals(X,Y)</span>
+<span class="comment">% - [contrast] = applyContrast(betas1, betas2)</span>
+
+<span class="comment">% load the file</span>
+data = load(file_name);
+
+<span class="comment">% acquire number of scans from dimensions of data</span>
+[~,~,~,nr_scans] = size(data.Y);
+
+<span class="comment">% create a design matrix</span>
+X = generateDesignMatrix(data.fix, data.stat, data.natt, data.att, data.hrf, nr_scans);
+
+<span class="comment">% do regression on the data using the design matrix</span>
+<span class="comment">% to obtain betas and residuals</span>
+[betas, ~, residuals] = computeBetaYhatResiduals(X,data.Y);
+
+
+<span class="comment">% compute the contrast of the betas in each voxel for the 3 conditions</span>
+<span class="comment">% taking into account significance level (p=0.05, t=10)</span>
+
+<span class="comment">% condition stat - fix</span>
+c1 = applyContrast(betas(:,:,:,3), betas(:,:,:,2), residuals);
+<span class="comment">% condition natt - stat</span>
+c2 = applyContrast(betas(:,:,:,4), betas(:,:,:,3), residuals);
+<span class="comment">% condition att - natt</span>
+c3 = applyContrast(betas(:,:,:,5), betas(:,:,:,4), residuals);
+
+
+<span class="comment">% visualize the voxels with significant contrast (essentially where</span>
+<span class="comment">% activity was observed) on top of the anatomical scan</span>
+
+<span class="comment">% condition stat - fix</span>
+view_scan(data.ana, c1);
+<span class="comment">% condition natt - stat</span>
+view_scan(data.ana, c2);
+<span class="comment">% condition att - natt</span>
+view_scan(data.ana, c3);
+<span class="keyword">end</span>
+</pre>
+	
+	</div></body></html>
